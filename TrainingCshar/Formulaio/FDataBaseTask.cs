@@ -29,7 +29,7 @@ namespace TrainingCshar.Formulaio
             try
             {
                 SqlAccess sql = new SqlAccess();
-                Codificacion.Serializar(sql.db, 1);
+                Codificacion.Procesar(sql.db, false);
                 sqlConnection.Open();
             }
             catch (Exception)

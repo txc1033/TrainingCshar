@@ -12,70 +12,70 @@ namespace TrainingCshar.Examples
     {
         public List<string> Recursividad(int numero)
         {
-            List<string> lRecursividad = new List<string>();
-            lRecursividad.Add("//////RECURSIVIDAD//////////");
-            Recursividad recursividad = new Recursividad();
+            List<string> lRecursividadResult = new List<string>();
+            lRecursividadResult.Add("//////RECURSIVIDAD//////////");
+            Recursividad Recursivo = new Recursividad();
             long factorial = 0;
             if (numero < 66)
             {
-                factorial = recursividad.Factorial(numero);
-                lRecursividad.Add($"El facorial de {numero} es: {factorial}");
+                factorial = Recursivo.Factorial(numero);
+                lRecursividadResult.Add($"El facorial de {numero} es: {factorial}");
             } else
             {
-                lRecursividad.Add($"El resultado del factorial de {numero} supera los limites");
+                lRecursividadResult.Add($"El resultado del factorial de {numero} supera los limites");
             }
-            return lRecursividad;
+            return lRecursividadResult;
         }
          public List<string> Codificacion(string mensaje)
             {
-            List<string> lCodificacion = new List<string>();
-            Codificacion Codificacion = new Codificacion();
+            List<string> lCodificacionResult = new List<string>();
 
             if (!string.IsNullOrEmpty(mensaje))
             {
-                Codificacion.Serializar(mensaje, 0);
-                lCodificacion.Add($"Mensaje Codificado: {Codificacion.Cadena()}");
-                Codificacion.Serializar(Codificacion.Cadena(), 1);
-                lCodificacion.Add($"Mensaje Decodificado: {Codificacion.Cadena()}");
+                Encoder.Codificacion.Procesar(mensaje, true);
+                lCodificacionResult.Add($"Mensaje Codificado: {Encoder.Codificacion.Cadena()}");
+                Encoder.Codificacion.Procesar(Encoder.Codificacion.Cadena(), false);
+                lCodificacionResult.Add($"Mensaje Decodificado: {Encoder.Codificacion.Cadena()}");
             }
             else
             {
-                lCodificacion.Add("No se puede codificar texto vacio..");
+                lCodificacionResult.Add("No se puede codificar texto vacio..");
             }
-            return lCodificacion;
+            return lCodificacionResult;
             }
 
         public List<string> Pila()
         {
-            List<string> lPila = new List<string>();
+            List<string> lPilaResult = new List<string>();
             Console.WriteLine("//////PILA//////////");
-            IPila pilaPrueba = new Pila();
+            IPila pilaPersona = new Pila();
 
             Persona pepe = new Persona("Pepe", 25);
             Persona juan = new Persona("Juan", 40);
 
-            pilaPrueba.Agregar(pepe);
-            pilaPrueba.Agregar(juan);
+            pilaPersona.Agregar(pepe);
+            pilaPersona.Agregar(juan);
 
-            lPila.AddRange(pilaPrueba.Imprimir());
-            lPila.Add(pilaPrueba.Cantidad());
+            lPilaResult.AddRange(pilaPersona.Imprimir());
+            lPilaResult.Add(pilaPersona.Cantidad());
 
-            Pila pila2Prueba = new Pila();
-            pila2Prueba.Agregar(pilaPrueba.Clonar());
-            pila2Prueba.Eliminar(true);
+            Pila pilaClon = new Pila();
+            pilaClon.Agregar(pilaPersona.Clonar());
+            pilaClon.Eliminar(true);
 
-            lPila.AddRange(pila2Prueba.Imprimir());
+            lPilaResult.AddRange(pilaClon.Imprimir());
 
-            return lPila;
+            return lPilaResult;
         }
 
         public List<string> Herencia()
         {
-            List<string> lHerencia = new List<string>();
-            lHerencia.Add("//////HERENCIA//////////");
-            Avion avion = new Avion("Avion");
-            Coche coche = new Coche("Automovil");
+            List<string> lHerenciaResult = new List<string>();
+            lHerenciaResult.Add("//////HERENCIA//////////");
+
             Vehiculo vehiculo = new Vehiculo("vehiculo");
+            Avion avion = new Avion("Avion");
+            Coche coche = new Coche("Automovil"); 
 
             Vehiculo[] vehiculos = new Vehiculo[3];
 
@@ -83,25 +83,24 @@ namespace TrainingCshar.Examples
             vehiculos[1] = coche;
             vehiculos[2] = vehiculo;
 
-
             for (int i = 0; i < vehiculos.Length; i++)
             {
-                lHerencia.Add($"{vehiculos[i].arrancarMotor()}");
-                lHerencia.Add($"{vehiculos[i].pararMotor()}");
+                lHerenciaResult.Add($"{vehiculos[i].arrancarMotor()}");
+                lHerenciaResult.Add($"{vehiculos[i].pararMotor()}");
             }
 
-            Vehiculo poliVehiculo = avion;
+            Vehiculo poliMorphVehiculo = avion;
 
-            lHerencia.Add(poliVehiculo.conducir());
+            lHerenciaResult.Add(poliMorphVehiculo.conducir());
 
-            poliVehiculo = coche;
-            lHerencia.Add(poliVehiculo.conducir());
+            poliMorphVehiculo = coche;
+            lHerenciaResult.Add(poliMorphVehiculo.conducir());
 
-            poliVehiculo = vehiculo;
+            poliMorphVehiculo = vehiculo;
 
-            lHerencia.Add(poliVehiculo.conducir());
+            lHerenciaResult.Add(poliMorphVehiculo.conducir());
 
-            return lHerencia;
+            return lHerenciaResult;
         }
 
         public List<string> Json()
@@ -111,23 +110,22 @@ namespace TrainingCshar.Examples
 
         public List<string> BaseDatos()
         {
-            List<string> lBaseDatos = new List<string>();
+            List<string> lBaseDatosResult = new List<string>();
            
             try
             {
-                Codificacion Codificacion = new Codificacion();
                 SqlConnection sqlConnection;
                 ISqlAccess sql = new SqlAccess();
-                Codificacion.Serializar(sql.db, 1);
-                sqlConnection = new SqlConnection(Codificacion.Cadena());
+                Encoder.Codificacion.Procesar(sql.db, false);
+                sqlConnection = new SqlConnection(Encoder.Codificacion.Cadena());
                 sqlConnection.Open();
-                lBaseDatos.Add($"Bien Se conecto a {sqlConnection.Database} estado: {sqlConnection.State}");
-                return lBaseDatos;
+                lBaseDatosResult.Add($"Bien Se conecto a {sqlConnection.Database} estado: {sqlConnection.State}");
+                return lBaseDatosResult;
             }
             catch (Exception e)
             {
-                lBaseDatos.Add($"Oops! hemos tenido un problema en {e.Message}");
-                return lBaseDatos;
+                lBaseDatosResult.Add($"Oops! hemos tenido un problema en {e.Message}");
+                return lBaseDatosResult;
 
             }
         }

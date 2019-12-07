@@ -10,14 +10,13 @@ namespace TrainingCshar.Formulaio
     public partial class FStart : Form
     {
         Type tiposEjemplo;
-
-        //public List<string> resultados = new List<string>();
+        MethodInfo[] metodosEjemplos;
 
         public FStart()
         { 
             InitializeComponent();
             tiposEjemplo = typeof(Examples.Ejemplos);
-            MethodInfo[] metodosEjemplos = tiposEjemplo.GetMethods();
+            metodosEjemplos = tiposEjemplo.GetMethods();
             InitializeCombobox(metodosEjemplos);
         }
 
@@ -80,32 +79,31 @@ namespace TrainingCshar.Formulaio
         {
             try
             {
-                Examples.Ejemplos clsEjemplos = new Examples.Ejemplos();
-                MethodInfo[] mEjemplos = tiposEjemplo.GetMethods();
+                Examples.Ejemplos Ejemplos = new Examples.Ejemplos();
                 
-                foreach (MethodInfo ejemplo in mEjemplos)
+                foreach (MethodInfo metodo in metodosEjemplos)
                 {
-                    ParameterInfo[] parametros = ejemplo.GetParameters();
+                    ParameterInfo[] parametros = metodo.GetParameters();
                     
-                    if (ejemplo.Name == accion)
+                    if (metodo.Name == accion)
                     { 
-                        dynamic respuesta;
+                        List<string> respuestas;
                       if (parametros.Length < 1)
                         {
-                            respuesta = Interaction.CallByName(clsEjemplos, ejemplo.Name, CallType.Method);
+                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method);
                         }else if(parametros[0].Name == "numero")
                         {
-                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {ejemplo.Name}";
-                            string valor = Interaction.InputBox(mensaje);
-                            respuesta = Interaction.CallByName(clsEjemplos, ejemplo.Name, CallType.Method, int.Parse(valor));
+                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {accion}";
+                            int valor =  int.Parse(Interaction.InputBox(mensaje));
+                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method, valor);
                         }
                         else
                         {
-                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {ejemplo.Name}";
+                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {accion}";
                             string valor = Interaction.InputBox(mensaje);
-                            respuesta = Interaction.CallByName(clsEjemplos, ejemplo.Name, CallType.Method, valor);
+                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method, valor);
                         }
-                        return new List<string> { respuesta};
+                        return respuestas;
                     }
                 }
 
