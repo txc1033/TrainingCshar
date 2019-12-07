@@ -42,6 +42,7 @@ namespace TrainingCshar.Formulaio
                 }
 
             }
+
         }
 
         private void CmbAcciones_TextChanged(object sender, EventArgs e)

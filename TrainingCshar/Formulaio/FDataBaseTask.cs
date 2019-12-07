@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,9 +102,61 @@ namespace TrainingCshar.Formulaio
 
         private void GuardarCsv(DataGridView dGPersona)
         {
-            string archivo = $"{DGPersona.Name}_{DateTime.UtcNow.ToString("DD-MM-yyyy_hhmm")}.csv";
+            if (DGPersona.RowCount > 1)
+            {
 
-            throw new NotImplementedException("Metodo en desarrollo");
+                string archivo = $"{DGPersona.Name}_{DateTime.UtcNow.ToString("DD-MM-yyyy_hhmm")}.csv";
+                StringBuilder texto = new StringBuilder();
+                string columna = "";
+
+                for (int j = 0; j < DGPersona.ColumnCount; j++)
+                {
+                    columna += DGPersona.Columns[j].HeaderText + ",";
+                }
+
+                // Para quitar la ultima coma {,}
+                columna = columna.Substring(0, columna.Length - 1); 
+                texto.AppendLine(columna);
+                ///<summary>
+                /// Se recorre las filas y se ingresa la informacion en el stringbuilder
+                /// </summary>
+                for (int i = 0; i < DGPersona.RowCount - 1; i++)
+                {
+                    string Fila = "";
+                    for (int j = 0; j < DGPersona.ColumnCount; j++)
+                    {
+                        Fila += DGPersona.Rows[i].Cells[j].Value.ToString() + ",";
+
+                    }
+                    Fila = Fila.Substring(0, Fila.Length - 1);
+                    texto.AppendLine(Fila);
+                }
+                ///<summary>
+                /// Aqui una vez estructurado el cuerpo del csv procedemos a guardarlo
+                /// pasamos la ruta en la que deseamos guardar el archivo
+                /// </summary>
+                string carpeta = @"D:\TrainingDb";
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
+                string rutaArchivo = Path.Combine(carpeta,archivo);
+                File.WriteAllText(rutaArchivo,texto.ToString());
+
+                ///<summary>
+                /// Una vez guardado lo abrimos con un editor de texto para
+                /// verificar que contenga la informacion
+                /// </summary>
+                try
+                {
+                    Process.Start("notepad++.exe", rutaArchivo);
+                }
+                catch(Exception)
+                {
+                    Process.Start("notepad.exe", rutaArchivo);
+                } 
+                    
+            }
         }
     }
 
