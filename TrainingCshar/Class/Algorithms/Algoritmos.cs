@@ -1,7 +1,5 @@
-﻿
-namespace TrainingCshar.Algorithms
+﻿namespace TrainingCshar.Algorithms
 {
-
     public class Recursividad : IRecursividad
     {
         public long Factorial(long numero)

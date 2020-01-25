@@ -1,14 +1,14 @@
 ﻿using System;
-using TrainingCshar.Collections;
-using TrainingCshar.Heritage;
-using TrainingCshar.Algorithms;
-using TrainingCshar.Encoder;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using TrainingCshar.Algorithms;
+using TrainingCshar.Collections;
+using TrainingCshar.Encoder;
+using TrainingCshar.Heritage;
 
 namespace TrainingCshar.Examples
 {
-    class Ejemplos : IEjemplos
+    internal class Ejemplos : IEjemplos
     {
         public List<string> Recursividad(int numero)
         {
@@ -20,14 +20,16 @@ namespace TrainingCshar.Examples
             {
                 factorial = Recursivo.Factorial(numero);
                 lRecursividadResult.Add($"El facorial de {numero} es: {factorial}");
-            } else
+            }
+            else
             {
                 lRecursividadResult.Add($"El resultado del factorial de {numero} supera los limites");
             }
             return lRecursividadResult;
         }
-         public List<string> Codificacion(string mensaje)
-            {
+
+        public List<string> Codificacion(string mensaje)
+        {
             List<string> lCodificacionResult = new List<string>();
 
             if (!string.IsNullOrEmpty(mensaje))
@@ -42,7 +44,7 @@ namespace TrainingCshar.Examples
                 lCodificacionResult.Add("No se puede codificar texto vacio..");
             }
             return lCodificacionResult;
-            }
+        }
 
         public List<string> Pila()
         {
@@ -75,7 +77,7 @@ namespace TrainingCshar.Examples
 
             Vehiculo vehiculo = new Vehiculo("vehiculo");
             Avion avion = new Avion("Avion");
-            Coche coche = new Coche("Automovil"); 
+            Coche coche = new Coche("Automovil");
 
             Vehiculo[] vehiculos = new Vehiculo[3];
 
@@ -111,7 +113,7 @@ namespace TrainingCshar.Examples
         public List<string> BaseDatos()
         {
             List<string> lBaseDatosResult = new List<string>();
-           
+
             try
             {
                 SqlConnection sqlConnection;
@@ -126,10 +128,7 @@ namespace TrainingCshar.Examples
             {
                 lBaseDatosResult.Add($"Oops! hemos tenido un problema en {e.Message}");
                 return lBaseDatosResult;
-
             }
         }
     }
-
 }
-

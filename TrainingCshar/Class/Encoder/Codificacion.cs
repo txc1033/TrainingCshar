@@ -1,8 +1,9 @@
 ﻿namespace TrainingCshar.Encoder
 {
-    class Codificacion
+    internal class Codificacion
     {
         private static string _cadena;
+
         public static string Cadena()
         {
             return _cadena;
@@ -26,6 +27,5 @@
             _cadena = System.Text.Encoding.Unicode.GetString(desencriptado);
             return _cadena;
         }
-
     }
 }

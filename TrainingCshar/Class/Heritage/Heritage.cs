@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TrainingCshar.Heritage
+﻿namespace TrainingCshar.Heritage
 {
     public class Vehiculo
     {
@@ -31,7 +29,6 @@ namespace TrainingCshar.Heritage
     {
         public Coche(string nombre) : base(nombre)
         {
-
         }
 
         new public virtual string conducir()
@@ -44,7 +41,6 @@ namespace TrainingCshar.Heritage
     {
         public Avion(string nombre) : base(nombre)
         {
-
         }
 
         public override string conducir()

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TrainingCshar.Collections
 {
-    class Pila : IPila
+    internal class Pila : IPila
     {
         private Stack<Persona> pilaPersona = new Stack<Persona>();
 
@@ -29,7 +28,6 @@ namespace TrainingCshar.Collections
                 pilaCopia.Push(persona);
             }
 
-
             return pilaCopia;
         }
 
@@ -37,8 +35,6 @@ namespace TrainingCshar.Collections
         {
             return $"Cantidad de elementos en Pila: {pilaPersona.Count} ";
         }
-
-
 
         public List<string> Imprimir()
         {
@@ -49,7 +45,6 @@ namespace TrainingCshar.Collections
                 pl.Add($"y tengo {persona.edad} años ");
             }
             return pl;
-
         }
 
         public void Eliminar(bool todos)
@@ -63,16 +58,14 @@ namespace TrainingCshar.Collections
         private string _nombre;
         private int _edad;
 
-        public Persona(string nombre,int edad = 15)
+        public Persona(string nombre, int edad = 15)
         {
             this._nombre = nombre;
             this._edad = edad;
         }
 
-        public string nombre  { get => _nombre;}
+        public string nombre { get => _nombre; }
 
-        public int edad { get => _edad;}
+        public int edad { get => _edad; }
     }
-
-
 }

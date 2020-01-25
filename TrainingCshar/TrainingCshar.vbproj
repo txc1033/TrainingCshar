@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A67BB4E-3079-0A80-16D5-EBE526EE4C87}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>TrainingCshar</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(ProjectDir)**\*.cs</DefaultItemExcludes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG,TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TrainingCshar.Load</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>world.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClassVbExtendss">
+      <HintPath>..\..\ClassLibrary1\ClassLibrary1\bin\Debug\ClassVbExtendss.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\Algorithms\Algoritmos.vb" />
+    <Compile Include="Class\Encoder\Codificacion.vb" />
+    <Compile Include="Class\Ejemplos.vb" />
+    <Compile Include="Interfaces\Encoder\ISqlAccess.vb" />
+    <Compile Include="Class\Encoder\SqlAccess.vb" />
+    <Compile Include="Formulaio\FApiTask.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaio\FApiTask.Designer.vb">
+      <DependentUpon>FApiTask.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaio\FDataBaseTask.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaio\FDataBaseTask.Designer.vb">
+      <DependentUpon>FDataBaseTask.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaio\FStart.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaio\FStart.Designer.vb">
+      <DependentUpon>FStart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Class\Heritage\Heritage.vb" />
+    <Compile Include="Interfaces\IEjemplos.vb" />
+    <Compile Include="Interfaces\Algorithms\IRecursividad.vb" />
+    <Compile Include="Interfaces\Collections\IPila.vb" />
+    <Compile Include="Load.vb" />
+    <Compile Include="Models\Persona.vb" />
+    <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="Class\Collections\Pila.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\DataSources\TrainingCshar.Models.Persona.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Formulaio\FApiTask.resx">
+      <DependentUpon>FApiTask.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaio\FDataBaseTask.resx">
+      <DependentUpon>FDataBaseTask.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaio\FStart.resx">
+      <DependentUpon>FStart.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="world.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

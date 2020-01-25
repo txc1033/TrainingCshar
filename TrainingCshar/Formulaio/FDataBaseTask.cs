@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrainingCshar.Encoder;
 
@@ -16,8 +10,8 @@ namespace TrainingCshar.Formulaio
 {
     public partial class FDataBaseTask : Form
     {
+        private SqlConnection sqlConnection;
 
-       private SqlConnection sqlConnection;
         public FDataBaseTask()
         {
             InitializeComponent();
@@ -26,7 +20,7 @@ namespace TrainingCshar.Formulaio
         private void FDataBaseTask_Load(object sender, EventArgs e)
         {
             Codificacion Codificacion = new Codificacion();
-            
+
             sqlConnection = new SqlConnection(Codificacion.Cadena());
             try
             {
@@ -51,10 +45,8 @@ namespace TrainingCshar.Formulaio
 
             for (int i = 1; i < cantidadFilas; i++)
             {
-                DGPersona.Rows[i-1].Cells[0].Value = i;
+                DGPersona.Rows[i - 1].Cells[0].Value = i;
             }
-
-            
         }
 
         private void btnLocalToDb_Click(object sender, EventArgs e)
@@ -64,9 +56,7 @@ namespace TrainingCshar.Formulaio
 
         private void GuardarBSenDb(DataGridView dGPersona)
         {
-
             throw new NotImplementedException("Metodo en desarrollo");
-            
         }
 
         private void btnLoadDb_Click(object sender, EventArgs e)
@@ -90,8 +80,6 @@ namespace TrainingCshar.Formulaio
         {
             DataGridView dgCsv = new DataGridView();
 
-
-
             return dgCsv;
         }
 
@@ -104,7 +92,6 @@ namespace TrainingCshar.Formulaio
         {
             if (DGPersona.RowCount > 1)
             {
-
                 string archivo = $"{DGPersona.Name}_{DateTime.UtcNow.ToString("DD-MM-yyyy_hhmm")}.csv";
                 StringBuilder texto = new StringBuilder();
                 string columna = "";
@@ -115,7 +102,7 @@ namespace TrainingCshar.Formulaio
                 }
 
                 // Para quitar la ultima coma {,}
-                columna = columna.Substring(0, columna.Length - 1); 
+                columna = columna.Substring(0, columna.Length - 1);
                 texto.AppendLine(columna);
                 ///<summary>
                 /// Se recorre las filas y se ingresa la informacion en el stringbuilder
@@ -126,7 +113,6 @@ namespace TrainingCshar.Formulaio
                     for (int j = 0; j < DGPersona.ColumnCount; j++)
                     {
                         Fila += DGPersona.Rows[i].Cells[j].Value.ToString() + ",";
-
                     }
                     Fila = Fila.Substring(0, Fila.Length - 1);
                     texto.AppendLine(Fila);
@@ -140,8 +126,8 @@ namespace TrainingCshar.Formulaio
                 {
                     Directory.CreateDirectory(carpeta);
                 }
-                string rutaArchivo = Path.Combine(carpeta,archivo);
-                File.WriteAllText(rutaArchivo,texto.ToString());
+                string rutaArchivo = Path.Combine(carpeta, archivo);
+                File.WriteAllText(rutaArchivo, texto.ToString());
 
                 ///<summary>
                 /// Una vez guardado lo abrimos con un editor de texto para
@@ -151,15 +137,11 @@ namespace TrainingCshar.Formulaio
                 {
                     Process.Start("notepad++.exe", rutaArchivo);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     Process.Start("notepad.exe", rutaArchivo);
-                } 
-                    
+                }
             }
         }
     }
-
-
-
 }

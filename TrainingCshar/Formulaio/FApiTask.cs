@@ -13,11 +13,10 @@ using ClassVbExtendss;
 
 namespace TrainingCshar.Formulaio
 {
-    
     public partial class FApiTask : Form
     {
-        ToolTip tlp = new ToolTip();
-       
+        private ToolTip tlp = new ToolTip();
+
         public FApiTask()
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace TrainingCshar.Formulaio
 
         private void LbResponse_Click(object sender, EventArgs e)
         {
-            
             tlp.Show("Elige un metodo de envio en la lista",this.lbResponse,30);
         }
 
@@ -63,16 +61,12 @@ namespace TrainingCshar.Formulaio
 
             javaScript = new JavaScriptSerializer();
 
-        
-            
             Persona objectPersona = javaScript.Deserialize<Persona>(txtJson.Text);
                 var jsonPersona = javaScript.Serialize(txtJson.Text);
-
             }
             catch (Exception except)
             {
                lbStatus.Text =  except.Message.Substring(0,34);
-               
             }
         }
     }

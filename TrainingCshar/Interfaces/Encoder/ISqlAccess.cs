@@ -1,6 +1,6 @@
 ﻿namespace TrainingCshar.Encoder
 {
-    interface ISqlAccess
+    internal interface ISqlAccess
     {
         string db { get; }
     }
