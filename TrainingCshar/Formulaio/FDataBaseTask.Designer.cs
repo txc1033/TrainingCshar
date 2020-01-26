@@ -81,6 +81,7 @@
             this.DGPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGPersona.AutoGenerateColumns = false;
             this.DGPersona.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGPersona.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.peridPersonaDataGridViewTextBoxColumn,
@@ -90,6 +91,7 @@
             this.perrutDataGridViewTextBoxColumn,
             this.perdvDataGridViewTextBoxColumn,
             this.perfechaNacimientoDataGridViewTextBoxColumn});
+            this.DGPersona.DataSource = this.personaBS;
             this.DGPersona.Location = new System.Drawing.Point(13, 64);
             this.DGPersona.Name = "DGPersona";
             this.DGPersona.Size = new System.Drawing.Size(769, 231);

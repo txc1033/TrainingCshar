@@ -35,7 +35,7 @@ namespace TrainingCshar.Formulaio
                     break;
 
                 case "BaseDatos":
-                    if (txtResultado.Text.ToLower().Contains("open"))
+                    if (txtResultado.Text.Contains("Open"))
                     {
                         OpenFDb();
                     }
@@ -60,7 +60,7 @@ namespace TrainingCshar.Formulaio
 
         private void CmbAcciones_TextChanged(object sender, EventArgs e)
         {
-            int posicionAccion = cmbAcciones.FindString(cmbAcciones.Text.ToString());
+            int posicionAccion = cmbAcciones.FindString(cmbAcciones.Text);
             int indiceAcciones = posicionAccion > 0 ? posicionAccion : 0;
             cmbAcciones.SelectedIndex = indiceAcciones;
             btnEjecutar.Text = indiceAcciones > 0 ? $"Ejecutar: {cmbAcciones.Text}" : "Ejecutar: Nada";

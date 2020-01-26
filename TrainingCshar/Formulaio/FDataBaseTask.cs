@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -10,11 +11,70 @@ namespace TrainingCshar.Formulaio
 {
     public partial class FDataBaseTask : Form
     {
+        private const string carpeta = @"D:\TrainingDb";
         private SqlConnection sqlConnection;
-
         public FDataBaseTask()
         {
             InitializeComponent();
+        }
+
+        private void btnExportToCsv_Click(object sender, EventArgs e)
+        {
+            GuardarCsv(DGPersona);
+        }
+
+        private void btnLoadCSV_Click(object sender, EventArgs e)
+        {
+            DGPersona = CargarCsv();
+        }
+
+        private void btnLoadDb_Click(object sender, EventArgs e)
+        {
+            DGPersona.DataSource = CargarDbenBs(sqlConnection);
+        }
+
+        private void btnLocalToDb_Click(object sender, EventArgs e)
+        {
+            GuardarBSenDb(DGPersona);
+        }
+
+        private DataGridView CargarCsv()
+        {
+            DataGridView dgCsv = new DataGridView();
+
+            return dgCsv;
+        }
+
+        private BindingSource CargarDbenBs(SqlConnection sqlConnection)
+        {
+            BindingSource dgDb = new BindingSource();
+
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasSegmento]", sqlConnection);
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+
+            sqlCmd.Parameters.Add(new SqlParameter("@cantidad", 300));
+
+            DataTable dt = new DataTable();
+            dt.Load(sqlCmd.ExecuteReader());
+            dgDb.DataSource = dt;
+            return dgDb;
+
+        }
+
+        private void DGPersona_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            int cantidadFilas = DGPersona.Rows.Count;
+
+            for (int i = 1; i < cantidadFilas; i++)
+            {
+                DGPersona.Rows[i - 1].Cells[0].Value = i;
+            }
+        }
+
+        private void FDataBaseTask_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            sqlConnection.Close();
         }
 
         private void FDataBaseTask_Load(object sender, EventArgs e)
@@ -33,67 +93,32 @@ namespace TrainingCshar.Formulaio
                 this.Close();
             }
         }
-
-        private void FDataBaseTask_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            sqlConnection.Close();
-        }
-
-        private void DGPersona_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            int cantidadFilas = DGPersona.Rows.Count;
-
-            for (int i = 1; i < cantidadFilas; i++)
-            {
-                DGPersona.Rows[i - 1].Cells[0].Value = i;
-            }
-        }
-
-        private void btnLocalToDb_Click(object sender, EventArgs e)
-        {
-            GuardarBSenDb(DGPersona);
-        }
-
         private void GuardarBSenDb(DataGridView dGPersona)
         {
-            throw new NotImplementedException("Metodo en desarrollo");
+            DataTable dtPersona = GetBindingSource(dGPersona);
+
+            if (dtPersona is null)
+            {
+                return;
+            }
+
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasEnTabla]", sqlConnection);
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+
+            sqlCmd.Parameters.Add("@tabla", SqlDbType.Structured).Value = dtPersona;
+
+           int cantidadAgregadaSql = sqlCmd.ExecuteNonQuery();
+
+            MessageBox.Show($"Se han agregado {cantidadAgregadaSql.ToString()} de registros a la base de datos: {sqlConnection.Database}", "Sql Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
-
-        private void btnLoadDb_Click(object sender, EventArgs e)
-        {
-            DGPersona = CargarDbenBs(sqlConnection);
-        }
-
-        private DataGridView CargarDbenBs(SqlConnection sqlConnection)
-        {
-            DataGridView dgDb = new DataGridView();
-
-            return dgDb;
-        }
-
-        private void btnLoadCSV_Click(object sender, EventArgs e)
-        {
-            DGPersona = CargarCsv();
-        }
-
-        private DataGridView CargarCsv()
-        {
-            DataGridView dgCsv = new DataGridView();
-
-            return dgCsv;
-        }
-
-        private void btnExportToCsv_Click(object sender, EventArgs e)
-        {
-            GuardarCsv(DGPersona);
-        }
-
         private void GuardarCsv(DataGridView dGPersona)
         {
             if (DGPersona.RowCount > 1)
             {
                 string archivo = $"{DGPersona.Name}_{DateTime.UtcNow.ToString("DD-MM-yyyy_hhmm")}.csv";
-                StringBuilder texto = new StringBuilder();
+                StringBuilder texto = new StringBuilder(100);
                 string columna = "";
 
                 for (int j = 0; j < DGPersona.ColumnCount; j++)
@@ -121,7 +146,7 @@ namespace TrainingCshar.Formulaio
                 /// Aqui una vez estructurado el cuerpo del csv procedemos a guardarlo
                 /// pasamos la ruta en la que deseamos guardar el archivo
                 /// </summary>
-                string carpeta = @"D:\TrainingDb";
+               
                 if (!Directory.Exists(carpeta))
                 {
                     Directory.CreateDirectory(carpeta);
@@ -143,5 +168,19 @@ namespace TrainingCshar.Formulaio
                 }
             }
         }
+
+        private DataTable GetBindingSource(DataGridView dgv)
+        {
+            BindingSource ds = (BindingSource) dgv.DataSource;
+
+            if (ds is null) {
+                return null;
+            }
+            DataTable dsc = (DataTable)ds.DataSource;
+
+            return dsc;
+        }
+
+
     }
 }
