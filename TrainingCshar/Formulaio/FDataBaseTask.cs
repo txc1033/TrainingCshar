@@ -39,41 +39,57 @@ namespace TrainingCshar.Formulaio
 
             DataTable dt = new DataTable();
 
-            using (var sr = new StreamReader($"{carpeta}DGPersona_26-01-2020_1243.csv"))
+            OpenFileDialog buscaArchivo = new OpenFileDialog();
+            buscaArchivo.InitialDirectory = carpeta;
+            buscaArchivo.Title = "Abrir archivo persona...";
+            buscaArchivo.Filter = "Archivos csv (*.csv)|*.csv";
+            buscaArchivo.FilterIndex = 1;
+            buscaArchivo.RestoreDirectory = true;
+
+            if(buscaArchivo.ShowDialog() == DialogResult.OK)
             {
-                string[] headers = sr.ReadLine().Split(',');
-                foreach (string header in headers)
+                using (var sr = new StreamReader(buscaArchivo.FileName))
                 {
-                    dt.Columns.Add(header);
-                }
-                dt.Columns[0].ColumnName = "per_idPersona";
-                dt.Columns[1].ColumnName = "per_nombre";
-                dt.Columns[2].ColumnName = "per_apellido";
-                dt.Columns[3].ColumnName = "per_edad";
-                dt.Columns[4].ColumnName = "per_rut";
-                dt.Columns[5].ColumnName = "per_dv";
-                dt.Columns[6].ColumnName = "per_fechaNacimiento";
-
-                dt.Columns["per_edad"].DataType = Type.GetType("System.Byte");
-                dt.Columns["per_rut"].DataType = Type.GetType("System.Int32");
-                dt.Columns["per_fechaNacimiento"].DataType = Type.GetType("System.DateTime");
-                
-
-                while (!sr.EndOfStream)
-                {
-                    string[] rows = sr.ReadLine().Split(',');
-                    DataRow dr = dt.NewRow();
-                    for (int i = 0; i < headers.Length; i++)
+                    try
                     {
-                        dr[i] = rows[i];
+                        string[] headers = sr.ReadLine().Split(',');
+                        foreach (string header in headers)
+                        {
+                            dt.Columns.Add(header);
+                        }
+                        //Se cambian los nombres de las columnas para que se asocien al DataSource
+                        dt.Columns[0].ColumnName = "per_idPersona";
+                        dt.Columns[1].ColumnName = "per_nombre";
+                        dt.Columns[2].ColumnName = "per_apellido";
+                        dt.Columns[3].ColumnName = "per_edad";
+                        dt.Columns[4].ColumnName = "per_rut";
+                        dt.Columns[5].ColumnName = "per_dv";
+                        dt.Columns[6].ColumnName = "per_fechaNacimiento";
+                        //Se cambian los tipos de datos para las columnas que no sean string 
+                        dt.Columns["per_edad"].DataType = Type.GetType("System.Byte");
+                        dt.Columns["per_rut"].DataType = Type.GetType("System.Int32");
+                        dt.Columns["per_fechaNacimiento"].DataType = Type.GetType("System.DateTime");
+                        //Se escribe las filas en las columnas
+                        while (!sr.EndOfStream)
+                        {
+                            string[] rows = sr.ReadLine().Split(',');
+                            DataRow dr = dt.NewRow();
+                            for (int i = 0; i < headers.Length; i++)
+                            {
+                                dr[i] = rows[i];
+                            }
+                            dt.Rows.Add(dr);
+                        }
+                    }catch(Exception e)
+                    {
+                        MessageBox.Show($"Error el formato del archivo no es compatible con la tabla\n{e.TargetSite}","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return null;
                     }
-                    dt.Rows.Add(dr);
                 }
+                dt.Columns.Remove("per_idPersona");
+                dgCsv.DataSource = dt;
             }
-            dt.Columns.Remove("per_idPersona");
-           
 
-            dgCsv.DataSource = dt;
             return dgCsv;
         }
         private BindingSource CargarDbenBs(SqlConnection sqlConnection)
