@@ -10,22 +10,25 @@ namespace TrainingCshar.Examples
 {
     internal class Ejemplos : IEjemplos
     {
-        public List<string> Recursividad(int numero)
+        public List<string> BaseDatos()
         {
-            List<string> lRecursividadResult = new List<string>();
-            lRecursividadResult.Add("//////RECURSIVIDAD//////////");
-            Recursividad Recursivo = new Recursividad();
-            long factorial = 0;
-            if (numero < 66)
+            List<string> lBaseDatosResult = new List<string>();
+
+            try
             {
-                factorial = Recursivo.Factorial(numero);
-                lRecursividadResult.Add($"El facorial de {numero} es: {factorial}");
+                SqlConnection sqlConnection;
+                ISqlAccess sql = new SqlAccess();
+                Encoder.Codificacion.Procesar(sql.db, false);
+                sqlConnection = new SqlConnection(Encoder.Codificacion.Cadena());
+                sqlConnection.Open();
+                lBaseDatosResult.Add($"Bien Se conecto a {sqlConnection.Database} estado: {sqlConnection.State}");
+                return lBaseDatosResult;
             }
-            else
+            catch (Exception e)
             {
-                lRecursividadResult.Add($"El resultado del factorial de {numero} supera los limites");
+                lBaseDatosResult.Add($"Oops! hemos tenido un problema en {e.Message}");
+                return lBaseDatosResult;
             }
-            return lRecursividadResult;
         }
 
         public List<string> Codificacion(string mensaje)
@@ -44,30 +47,6 @@ namespace TrainingCshar.Examples
                 lCodificacionResult.Add("No se puede codificar texto vacio..");
             }
             return lCodificacionResult;
-        }
-
-        public List<string> Pila()
-        {
-            List<string> lPilaResult = new List<string>();
-            Console.WriteLine("//////PILA//////////");
-            IPila pilaPersona = new Pila();
-
-            Persona pepe = new Persona("Pepe", 25);
-            Persona juan = new Persona("Juan", 40);
-
-            pilaPersona.Agregar(pepe);
-            pilaPersona.Agregar(juan);
-
-            lPilaResult.AddRange(pilaPersona.Imprimir());
-            lPilaResult.Add(pilaPersona.Cantidad());
-
-            Pila pilaClon = new Pila();
-            pilaClon.Agregar(pilaPersona.Clonar());
-            pilaClon.Eliminar(true);
-
-            lPilaResult.AddRange(pilaClon.Imprimir());
-
-            return lPilaResult;
         }
 
         public List<string> Herencia()
@@ -110,25 +89,46 @@ namespace TrainingCshar.Examples
             return new List<string> { "Abriendo Json..." };
         }
 
-        public List<string> BaseDatos()
+        public List<string> Pila()
         {
-            List<string> lBaseDatosResult = new List<string>();
+            List<string> lPilaResult = new List<string>();
+            Console.WriteLine("//////PILA//////////");
+            IPila pilaPersona = new Pila();
 
-            try
+            Persona pepe = new Persona("Pepe", 25);
+            Persona juan = new Persona("Juan", 40);
+
+            pilaPersona.Agregar(pepe);
+            pilaPersona.Agregar(juan);
+
+            lPilaResult.AddRange(pilaPersona.Imprimir());
+            lPilaResult.Add(pilaPersona.Cantidad());
+
+            Pila pilaClon = new Pila();
+            pilaClon.Agregar(pilaPersona.Clonar());
+            pilaClon.Eliminar(true);
+
+            lPilaResult.AddRange(pilaClon.Imprimir());
+
+            return lPilaResult;
+        }
+
+        public List<string> Recursividad(int numero)
+        {
+            List<string> lRecursividadResult = new List<string>();
+            lRecursividadResult.Add("//////RECURSIVIDAD//////////");
+            Recursividad Recursivo = new Recursividad();
+            long factorial = 0;
+            if (numero < 66)
             {
-                SqlConnection sqlConnection;
-                ISqlAccess sql = new SqlAccess();
-                Encoder.Codificacion.Procesar(sql.db, false);
-                sqlConnection = new SqlConnection(Encoder.Codificacion.Cadena());
-                sqlConnection.Open();
-                lBaseDatosResult.Add($"Bien Se conecto a {sqlConnection.Database} estado: {sqlConnection.State}");
-                return lBaseDatosResult;
+                factorial = Recursivo.Factorial(numero);
+                lRecursividadResult.Add($"El facorial de {numero} es: {factorial}");
             }
-            catch (Exception e)
+            else
             {
-                lBaseDatosResult.Add($"Oops! hemos tenido un problema en {e.Message}");
-                return lBaseDatosResult;
+                lRecursividadResult.Add($"El resultado del factorial de {numero} supera los limites");
             }
+            return lRecursividadResult;
         }
     }
 }

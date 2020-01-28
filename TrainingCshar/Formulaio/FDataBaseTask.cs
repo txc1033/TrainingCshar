@@ -74,7 +74,8 @@ namespace TrainingCshar.Formulaio
                         {
                             string[] rows = sr.ReadLine().Split(',');
                             DataRow dr = dt.NewRow();
-                            for (int i = 0; i < headers.Length; i++)
+                            int countHeader = headers.Length;
+                            for (int i = 0; i < countHeader; i++)
                             {
                                 dr[i] = rows[i];
                             }
@@ -177,8 +178,8 @@ namespace TrainingCshar.Formulaio
                     string archivo = $"{DGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm")}.csv";
                     StringBuilder texto = new StringBuilder(100);
                     string columna = "";
-
-                    for (int j = 0; j < dGPersona.ColumnCount; j++)
+                    int countColumns = dGPersona.ColumnCount;
+                    for (int j = 0; j < countColumns; j++)
                     {
                         columna += dGPersona.Columns[j].HeaderText + ",";
                     }
@@ -189,10 +190,12 @@ namespace TrainingCshar.Formulaio
                     ///<summary>
                     /// Se recorre las filas y se ingresa la informacion en el stringbuilder
                     /// </summary>
-                    for (int i = 0; i < dGPersona.RowCount - 1; i++)
+                    int countRows = dGPersona.RowCount - 1;
+                    for (int i = 0; i < countRows; i++)
                     {
                         string Fila = "";
-                        for (int j = 0; j < dGPersona.ColumnCount; j++)
+                        int countColumn = dGPersona.ColumnCount;
+                        for (int j = 0; j < countColumn; j++)
                         {
                             Fila += dGPersona.Rows[i].Cells[j].Value.ToString() + ",";
                         }

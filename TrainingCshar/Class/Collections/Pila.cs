@@ -2,6 +2,21 @@
 
 namespace TrainingCshar.Collections
 {
+    public class Persona
+    {
+        private int _edad;
+        private string _nombre;
+
+        public Persona(string nombre, int edad = 15)
+        {
+            this._nombre = nombre;
+            this._edad = edad;
+        }
+
+        public int edad { get => _edad; }
+        public string nombre { get => _nombre; }
+    }
+
     internal class Pila : IPila
     {
         private Stack<Persona> pilaPersona = new Stack<Persona>();
@@ -11,12 +26,17 @@ namespace TrainingCshar.Collections
             pilaPersona.Push(persona);
         }
 
-        public void Agregar(Stack<Persona> stack)
+        public void Agregar(Stack<Persona> pilaPersonas)
         {
-            foreach (var persona in stack)
+            foreach (var persona in pilaPersonas)
             {
                 pilaPersona.Push(persona);
             }
+        }
+
+        public string Cantidad()
+        {
+            return $"Cantidad de elementos en Pila: {pilaPersona.Count} ";
         }
 
         public Stack<Persona> Clonar()
@@ -31,41 +51,20 @@ namespace TrainingCshar.Collections
             return pilaCopia;
         }
 
-        public string Cantidad()
-        {
-            return $"Cantidad de elementos en Pila: {pilaPersona.Count} ";
-        }
-
-        public List<string> Imprimir()
-        {
-            List<string> pl = new List<string>();
-            foreach (var persona in pilaPersona)
-            {
-                pl.Add($"Hola Me llamo {persona.nombre} ");
-                pl.Add($"y tengo {persona.edad} años ");
-            }
-            return pl;
-        }
-
         public void Eliminar(bool todos)
         {
             if (todos) { pilaPersona.Clear(); } else { pilaPersona.Pop(); }
         }
-    }
 
-    public class Persona
-    {
-        private string _nombre;
-        private int _edad;
-
-        public Persona(string nombre, int edad = 15)
+        public List<string> Imprimir()
         {
-            this._nombre = nombre;
-            this._edad = edad;
+            List<string> strPila = new List<string>();
+            foreach (var persona in pilaPersona)
+            {
+                strPila.Add($"Hola Me llamo {persona.nombre} ");
+                strPila.Add($"y tengo {persona.edad} años ");
+            }
+            return strPila;
         }
-
-        public string nombre { get => _nombre; }
-
-        public int edad { get => _edad; }
     }
 }

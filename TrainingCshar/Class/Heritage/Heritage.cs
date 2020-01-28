@@ -1,27 +1,14 @@
 ﻿namespace TrainingCshar.Heritage
 {
-    public class Vehiculo
+    public class Avion : Vehiculo
     {
-        private string vehiculo;
-
-        public string arrancarMotor()
+        public Avion(string nombre) : base(nombre)
         {
-            return $"Estoy arracando el motor del {vehiculo}";
         }
 
-        public string pararMotor()
+        public override string conducir()
         {
-            return $"Estoy deteniendo el motor del {vehiculo}";
-        }
-
-        public virtual string conducir()
-        {
-            return $"Estoy manejando el {vehiculo}";
-        }
-
-        public Vehiculo(string nombre)
-        {
-            vehiculo = nombre;
+            return "Estoy volando por los aires";
         }
     }
 
@@ -37,15 +24,28 @@
         }
     }
 
-    public class Avion : Vehiculo
+    public class Vehiculo
     {
-        public Avion(string nombre) : base(nombre)
+        private string vehiculo;
+
+        public Vehiculo(string nombre)
         {
+            vehiculo = nombre;
         }
 
-        public override string conducir()
+        public string arrancarMotor()
         {
-            return "Estoy volando por los aires";
+            return $"Estoy arracando el motor del {vehiculo}";
+        }
+
+        public virtual string conducir()
+        {
+            return $"Estoy manejando el {vehiculo}";
+        }
+
+        public string pararMotor()
+        {
+            return $"Estoy deteniendo el motor del {vehiculo}";
         }
     }
 }
