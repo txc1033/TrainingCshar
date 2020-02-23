@@ -2,7 +2,7 @@
 
 namespace TrainingCshar.Models
 {
-    internal class Persona
+    internal sealed class Persona
     {
         public int per_idPersona { get; set; }
         public string per_nombre { get; set; }

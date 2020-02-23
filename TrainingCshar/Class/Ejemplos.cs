@@ -8,16 +8,16 @@ using TrainingCshar.Heritage;
 
 namespace TrainingCshar.Examples
 {
-    internal class Ejemplos : IEjemplos
+    internal sealed class Ejemplos : IEjemplos
     {
         public List<string> BaseDatos()
         {
-            List<string> lBaseDatosResult = new List<string>();
+            List<string> lBaseDatosResult = new List<string>(3);
 
             try
             {
                 SqlConnection sqlConnection;
-                ISqlAccess sql = new SqlAccess();
+                SqlAccess sql = new SqlAccess();
                 Encoder.Codificacion.Procesar(sql.db, false);
                 sqlConnection = new SqlConnection(Encoder.Codificacion.Cadena());
                 sqlConnection.Open();
@@ -33,7 +33,7 @@ namespace TrainingCshar.Examples
 
         public List<string> Codificacion(string mensaje)
         {
-            List<string> lCodificacionResult = new List<string>();
+            List<string> lCodificacionResult = new List<string>(3);
 
             if (!string.IsNullOrEmpty(mensaje))
             {
@@ -51,8 +51,10 @@ namespace TrainingCshar.Examples
 
         public List<string> Herencia()
         {
-            List<string> lHerenciaResult = new List<string>();
-            lHerenciaResult.Add("//////HERENCIA//////////");
+            List<string> lHerenciaResult = new List<string>(3)
+            {
+                "//////HERENCIA//////////"
+            };
 
             Vehiculo vehiculo = new Vehiculo("vehiculo");
             Avion avion = new Avion("Avion");
@@ -64,10 +66,10 @@ namespace TrainingCshar.Examples
             vehiculos[1] = coche;
             vehiculos[2] = vehiculo;
 
-            for (int i = 0; i < vehiculos.Length; i++)
+            foreach (Vehiculo _vehiculo in vehiculos)
             {
-                lHerenciaResult.Add($"{vehiculos[i].arrancarMotor()}");
-                lHerenciaResult.Add($"{vehiculos[i].pararMotor()}");
+                lHerenciaResult.Add($"{_vehiculo.arrancarMotor()}");
+                lHerenciaResult.Add($"{_vehiculo.pararMotor()}");
             }
 
             Vehiculo poliMorphVehiculo = avion;
@@ -91,9 +93,9 @@ namespace TrainingCshar.Examples
 
         public List<string> Pila()
         {
-            List<string> lPilaResult = new List<string>();
+            List<string> lPilaResult = new List<string>(3);
             Console.WriteLine("//////PILA//////////");
-            IPila pilaPersona = new Pila();
+            Pila pilaPersona = new Pila();
 
             Persona pepe = new Persona("Pepe", 25);
             Persona juan = new Persona("Juan", 40);
@@ -115,13 +117,14 @@ namespace TrainingCshar.Examples
 
         public List<string> Recursividad(int numero)
         {
-            List<string> lRecursividadResult = new List<string>();
-            lRecursividadResult.Add("//////RECURSIVIDAD//////////");
-            Recursividad Recursivo = new Recursividad();
-            long factorial = 0;
+            List<string> lRecursividadResult = new List<string>(3)
+            {
+                "//////RECURSIVIDAD//////////"
+            };
+            Recursividad recursividad = new Recursividad();
             if (numero < 66)
             {
-                factorial = Recursivo.Factorial(numero);
+                long factorial = recursividad.Factorial(numero);
                 lRecursividadResult.Add($"El facorial de {numero} es: {factorial}");
             }
             else

@@ -37,16 +37,18 @@ namespace TrainingCshar.Formulaio
         {
             BindingSource dgCsv = new BindingSource();
 
-            DataTable dt = new DataTable();
+            DataTable dataTable = new DataTable();
 
-            OpenFileDialog buscaArchivo = new OpenFileDialog();
-            buscaArchivo.InitialDirectory = carpeta;
-            buscaArchivo.Title = "Abrir archivo persona...";
-            buscaArchivo.Filter = "Archivos csv (*.csv)|*.csv";
-            buscaArchivo.FilterIndex = 1;
-            buscaArchivo.RestoreDirectory = true;
+            OpenFileDialog buscaArchivo = new OpenFileDialog
+            {
+                InitialDirectory = carpeta,
+                Title = "Abrir archivo persona...",
+                Filter = "Archivos csv (*.csv)|*.csv",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
-            if(buscaArchivo.ShowDialog() == DialogResult.OK)
+            if (buscaArchivo.ShowDialog() == DialogResult.OK)
             {
                 using (var sr = new StreamReader(buscaArchivo.FileName))
                 {
@@ -55,40 +57,39 @@ namespace TrainingCshar.Formulaio
                         string[] headers = sr.ReadLine().Split(',');
                         foreach (string header in headers)
                         {
-                            dt.Columns.Add(header);
+                            dataTable.Columns.Add(header);
                         }
-                        //Se cambian los nombres de las columnas para que se asocien al DataSource
-                        dt.Columns[0].ColumnName = "per_idPersona";
-                        dt.Columns[1].ColumnName = "per_nombre";
-                        dt.Columns[2].ColumnName = "per_apellido";
-                        dt.Columns[3].ColumnName = "per_edad";
-                        dt.Columns[4].ColumnName = "per_rut";
-                        dt.Columns[5].ColumnName = "per_dv";
-                        dt.Columns[6].ColumnName = "per_fechaNacimiento";
-                        //Se cambian los tipos de datos para las columnas que no sean string 
-                        dt.Columns["per_edad"].DataType = Type.GetType("System.Byte");
-                        dt.Columns["per_rut"].DataType = Type.GetType("System.Int32");
-                        dt.Columns["per_fechaNacimiento"].DataType = Type.GetType("System.DateTime");
+                        dataTable.Columns[0].ColumnName = "per_idPersona";
+                        dataTable.Columns[1].ColumnName = "per_nombre";
+                        dataTable.Columns[2].ColumnName = "per_apellido";
+                        dataTable.Columns[3].ColumnName = "per_edad";
+                        dataTable.Columns[4].ColumnName = "per_rut";
+                        dataTable.Columns[5].ColumnName = "per_dv";
+                        dataTable.Columns[6].ColumnName = "per_fechaNacimiento";
+                        dataTable.Columns["per_edad"].DataType = Type.GetType("System.Byte");
+                        dataTable.Columns["per_rut"].DataType = Type.GetType("System.Int32");
+                        dataTable.Columns["per_fechaNacimiento"].DataType = Type.GetType("System.DateTime");
                         //Se escribe las filas en las columnas
                         while (!sr.EndOfStream)
                         {
                             string[] rows = sr.ReadLine().Split(',');
-                            DataRow dr = dt.NewRow();
+                            DataRow dr = dataTable.NewRow();
                             int countHeader = headers.Length;
                             for (int i = 0; i < countHeader; i++)
                             {
                                 dr[i] = rows[i];
                             }
-                            dt.Rows.Add(dr);
+                            dataTable.Rows.Add(dr);
                         }
-                    }catch(Exception e)
+                    }
+                    catch (Exception e)
                     {
-                        MessageBox.Show($"Error el formato del archivo no es compatible con la tabla\n{e.TargetSite}","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show($"Error el formato del archivo no es compatible con la tabla\n{e.TargetSite}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return null;
                     }
                 }
-                dt.Columns.Remove("per_idPersona");
-                dgCsv.DataSource = dt;
+                dataTable.Columns.Remove("per_idPersona");
+                dgCsv.DataSource = dataTable;
             }
 
             return dgCsv;
@@ -97,9 +98,10 @@ namespace TrainingCshar.Formulaio
         {
             BindingSource dgDb = new BindingSource();
 
-            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasSegmento]", sqlConnection);
-
-            sqlCmd.CommandType = CommandType.StoredProcedure;
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasSegmento]", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             sqlCmd.Parameters.Add(new SqlParameter("@cantidad", 300));
 
@@ -123,8 +125,6 @@ namespace TrainingCshar.Formulaio
         }
         private void FDataBaseTask_Load(object sender, EventArgs e)
         {
-            Codificacion Codificacion = new Codificacion();
-
             sqlConnection = new SqlConnection(Codificacion.Cadena());
             try
             {
@@ -158,13 +158,14 @@ namespace TrainingCshar.Formulaio
                 return;
             }
 
-            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasEnTabla]", sqlConnection);
-
-            sqlCmd.CommandType = CommandType.StoredProcedure;
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasEnTabla]", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             sqlCmd.Parameters.Add("@tabla", SqlDbType.Structured).Value = dtPersona;
 
-           int cantidadAgregadaSql = sqlCmd.ExecuteNonQuery();
+            int cantidadAgregadaSql = sqlCmd.ExecuteNonQuery();
 
             MessageBox.Show($"Se han agregado {cantidadAgregadaSql.ToString()} de registros a la base de datos: {sqlConnection.Database}", "Sql Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -227,10 +228,11 @@ namespace TrainingCshar.Formulaio
                         Process.Start("notepad.exe", rutaArchivo);
                     }
                 }
-            } catch (Exception e)
-                {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show($"El formato que se intenta exportar no es valido\n{e.TargetSite}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
-  }
+    }
+}

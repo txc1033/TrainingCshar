@@ -61,6 +61,7 @@
     <Compile Include="Class\Algorithms\Algoritmos.cs" />
     <Compile Include="Class\Encoder\Codificacion.cs" />
     <Compile Include="Class\Ejemplos.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\Encoder\ISqlAccess.cs" />
     <Compile Include="Class\Encoder\SqlAccess.cs" />
     <Compile Include="Formulaio\FApiTask.cs">

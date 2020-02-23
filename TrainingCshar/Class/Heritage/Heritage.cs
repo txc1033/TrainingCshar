@@ -18,7 +18,7 @@
         {
         }
 
-        new public virtual string conducir()
+        public new virtual string conducir()
         {
             return "Estoy avanzando por la carretera";
         }
@@ -26,7 +26,7 @@
 
     public class Vehiculo
     {
-        private string vehiculo;
+        private readonly string vehiculo;
 
         public Vehiculo(string nombre)
         {

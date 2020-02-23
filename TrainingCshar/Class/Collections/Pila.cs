@@ -4,8 +4,8 @@ namespace TrainingCshar.Collections
 {
     public class Persona
     {
-        private int _edad;
-        private string _nombre;
+        private readonly int _edad;
+        private readonly string _nombre;
 
         public Persona(string nombre, int edad = 15)
         {
@@ -19,7 +19,7 @@ namespace TrainingCshar.Collections
 
     internal class Pila : IPila
     {
-        private Stack<Persona> pilaPersona = new Stack<Persona>();
+        private readonly Stack<Persona> pilaPersona = new Stack<Persona>();
 
         public void Agregar(Persona persona)
         {

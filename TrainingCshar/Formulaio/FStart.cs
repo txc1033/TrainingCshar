@@ -8,8 +8,8 @@ namespace TrainingCshar.Formulaio
 {
     public partial class FStart : Form
     {
-        private MethodInfo[] metodosEjemplos;
-        private Type tiposEjemplo;
+        private readonly MethodInfo[] metodosEjemplos;
+        private readonly Type tiposEjemplo;
         public FStart()
         {
             InitializeComponent();
