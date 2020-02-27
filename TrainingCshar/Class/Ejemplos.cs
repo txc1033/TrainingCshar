@@ -8,7 +8,7 @@ using TrainingCshar.Heritage;
 
 namespace TrainingCshar.Examples
 {
-    internal sealed class Ejemplos : IEjemplos
+    public class Ejemplos : IEjemplos
     {
         public List<string> BaseDatos()
         {
