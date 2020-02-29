@@ -23,5 +23,25 @@ namespace CsharView
         {
             InitializeComponent();
         }
+
+        private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLoadCSV_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSaveDb_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLoadDb_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

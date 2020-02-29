@@ -58,13 +58,13 @@ namespace CsharView
             switch (accion)
             {
                 case "Json":
-                    //OpenFApi();
+                    OpenFApi();
                     break;
 
                 case "BaseDatos":
                     if (txtResultado.Text.Contains("Open"))
                     {
-                        //OpenFDb();
+                       OpenFDb();
                     }
                     break;
             }
@@ -113,20 +113,18 @@ namespace CsharView
 
         private void OpenFApi()
         {
-          /* FApiTask fApi = new FApiTask();
+           WpfClientRestTask fApi = new WpfClientRestTask();
             this.Hide();
             fApi.ShowDialog();
             this.Show();
-            */
         }
 
         private void OpenFDb()
         {
-         /*   FDataBaseTask fDB = new FDataBaseTask();
+            WpfDataBaseTask fDB = new WpfDataBaseTask();
             this.Hide();
             fDB.ShowDialog();
             this.Show();
-            */
         }
 
 

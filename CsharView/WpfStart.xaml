@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CsharView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Training Cshar Inicio" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -18,8 +18,8 @@
         <ComboBox Name="cmbAcciones" Grid.Column="0" Grid.Row="0" Margin="10" Text="Seleccione un methodo..."></ComboBox>
         <Button Click="BtnEjecutarClick" Grid.Column="1" Grid.Row="0" Margin="10">Ejecutar:</Button>
         <Border  Grid.ColumnSpan="2" Grid.Row="1" Margin="20" BorderBrush="Gray" BorderThickness="2">
-            <TextBox Name="txtResultado" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   FontSize="25" Margin="8" Height="309" Width="732" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True">Bienvenido a TrainingCshar</TextBox>
+            <TextBox Name="txtResultado"
+                   FontSize="25" Margin="8" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" MinWidth="732" MinHeight="309">Bienvenido a TrainingCshar</TextBox>
         </Border>
     </Grid>
 </Window>

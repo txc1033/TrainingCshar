@@ -17,9 +17,9 @@ namespace CsharView
     /// <summary>
     /// Lógica de interacción para Wpf.xaml
     /// </summary>
-    public partial class Wpf : Window
+    public partial class WpfClientRestTask : Window
     {
-        public Wpf()
+        public WpfClientRestTask()
         {
             InitializeComponent();
         }
