@@ -18,7 +18,7 @@
             <RowDefinition Height="65"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Click="btnLoadDb_Click" Name="btnLoadDb"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Margin="10,10,0,10" Width="113">Cargar desde la DB</Button>
+        <Button Click="btnLoadDb_Click" Name="btnLoadDb"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Margin="10" Width="103">Cargar desde DB</Button>
         <Button Click="btnSaveDb_Click" Name="btnSaveDb" Grid.Column="1" Margin="5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="108">Exportar local a DB</Button>
         <TextBlock Name="lbTitle" Grid.Column="2" FontSize="22" FontWeight="Bold" TextDecorations="Underline" TextAlignment="Center" VerticalAlignment="Center">Gestion de datos locales</TextBlock>
         <Button Click="btnLoadCSV_Click" Name="btnLoadCSV" Grid.Column="4" Margin="5,10">Cargar CSV</Button>
