@@ -1,6 +1,6 @@
 ﻿namespace TrainingCshar.Encoder
 {
-    internal class Codificacion
+    public class Codificacion
     {
         private static string _cadena;
 

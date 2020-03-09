@@ -10,6 +10,9 @@ using Microsoft.Win32;
 using System.Windows.Controls;
 using System.Diagnostics;
 using System.Text;
+using System.Globalization;
+using TrainingCshar.Encoder;
+
 
 namespace CsharView
 {
@@ -21,10 +24,22 @@ namespace CsharView
         private const string carpeta = @"D:\TrainingDb\";
         private const string titulo = "Error";
         private SqlConnection sqlConnection;
+        private CultureInfo region =  new CultureInfo("es-CL");
 
         public WpfDataBaseTask()
         {
             InitializeComponent();
+            sqlConnection = new SqlConnection(Codificacion.Cadena());
+            try
+            {
+                SqlAccess sql = new SqlAccess();
+                Codificacion.Procesar(sql.db, false);
+                sqlConnection.Open();
+            }
+            catch (Exception)
+            {
+                this.Close();
+            }
         }
 
         private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
@@ -39,7 +54,7 @@ namespace CsharView
                 {
                     if (DGPersona.Items.Count > 1)
                     {
-                        string archivo = $"{DGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm")}.csv";
+                        string archivo = $"{DGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm", region)}.csv";
                         StringBuilder texto = new StringBuilder(100);
                         string columna = "";
                         int countColumns = dGPersona.Columns.Count;
@@ -58,11 +73,16 @@ namespace CsharView
                     {
                         DataGridRow row = (DataGridRow)dGPersona.ItemContainerGenerator.ContainerFromItem(item);
                         string Fila = "";
+                        if (row == null)
+                            continue;
+
                         for (int j = 0; j < dGPersona.Columns.Count; j++)
                         {
-                            Fila += ((TextBlock)dGPersona.Columns[j].GetCellContent(row)).Text + ",";
+                            var dato = dGPersona.Columns[j].GetCellContent(row);
+                            Fila += string.IsNullOrEmpty(((TextBlock)dato).Text) ? "" : ((TextBlock)dato).Text + ",";
                         }
-                        Fila = Fila.Substring(0, Fila.Length - 1);
+                        if (Fila.Length > 0)
+                            Fila = Fila.Substring(0, Fila.Length - 1);
                         texto.AppendLine(Fila);
                         
                     }
@@ -101,23 +121,84 @@ namespace CsharView
         private void btnLoadCSV_Click(object sender, RoutedEventArgs e)
         {
             DGPersona.ItemsSource = CargarCsv();
-            DGPersona.Columns[0].Header = "ID";
-            DGPersona.Columns[1].Header = "Nombre";
-            DGPersona.Columns[2].Header = "Apellidos";
-            DGPersona.Columns[3].Header = "Edad";
-            DGPersona.Columns[4].Header = "Rut";
-            DGPersona.Columns[5].Header = "Digito Verificador";
-            DGPersona.Columns[6].Header = "Fecha Nacimiento";
+            if (DGPersona.Columns.Count > 0)
+            {
+                DGPersona.Columns[0].Header = "ID";
+                DGPersona.Columns[1].Header = "Nombre";
+                DGPersona.Columns[2].Header = "Apellidos";
+                DGPersona.Columns[3].Header = "Edad";
+                DGPersona.Columns[4].Header = "Rut";
+                DGPersona.Columns[5].Header = "Digito Verificador";
+                DGPersona.Columns[6].Header = "Fecha Nacimiento";
+            }
+               
         }
 
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
         {
+            GuardaDGenDB(DGPersona);
+        }
 
+        private void GuardaDGenDB(DataGrid dGPersona)
+        {
+            throw new NotImplementedException();
         }
 
         private void btnLoadDb_Click(object sender, RoutedEventArgs e)
         {
+            DGPersona.ItemsSource = CargarDB(sqlConnection);
+            if (DGPersona.Columns.Count > 0)
+            {
+                DGPersona.Columns[0].Header = "ID";
+                DGPersona.Columns[1].Header = "Nombre";
+                DGPersona.Columns[2].Header = "Apellidos";
+                DGPersona.Columns[3].Header = "Edad";
+                DGPersona.Columns[4].Header = "Rut";
+                DGPersona.Columns[5].Header = "Digito Verificador";
+                DGPersona.Columns[6].Header = "Fecha Nacimiento";
+            }
+        }
 
+        private ObservableCollection<Persona> CargarDB(SqlConnection sqlConnection)
+        {
+            ObservableCollection<Persona> personasDb = new ObservableCollection<Persona>();
+
+            var seed = Environment.TickCount;
+            var random = new Random(seed);
+            int rango = random.Next(50, 500);
+
+            DataTable dt = new DataTable();
+
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasSegmento]", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            sqlCmd.Parameters.Add(new SqlParameter("@cantidad", rango));
+
+           
+            dt.Load(sqlCmd.ExecuteReader());
+            int contador = 1;
+            foreach (DataRow rows in dt.Rows)
+            {
+
+
+              Persona persona =  new Persona()
+                {
+                    per_idPersona = contador,
+                    per_nombre = (string)rows[0],
+                    per_apellido = (string)rows[1],
+                    per_edad = int.Parse(rows[2].ToString(), region),
+                    per_rut = (int)rows[3],
+                    per_dv = (string)rows[4],
+                    per_fechaNacimiento = (DateTime)rows[5]
+              };
+                personasDb.Add(persona);
+                contador++;
+            }
+
+
+            return personasDb;
         }
 
         private ObservableCollection<Persona> CargarCsv()
@@ -146,19 +227,20 @@ namespace CsharView
                             {
                                 Persona per = new Persona()
                                 {
-                                    per_idPersona = int.Parse(rows[0]),
+                                    per_idPersona = int.Parse(rows[0], region),
                                     per_nombre = rows[1],
                                     per_apellido = rows[2],
-                                    per_edad = int.Parse(rows[3]),
-                                    per_rut = int.Parse(rows[4]),
+                                    per_edad = int.Parse(rows[3], region),
+                                    per_rut = int.Parse(rows[4], region),
                                     per_dv = rows[5],
-                                    per_fechaNacimiento = DateTime.Parse(rows[6])
+                                    per_fechaNacimiento = DateTime.Parse(rows[6], region)
 
                                 };
                                 personasCsv.Add(per);
                             }
 
                         }
+                             
                     }
                     catch (Exception e)
                     {

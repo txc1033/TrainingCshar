@@ -2,7 +2,7 @@
 
 namespace TrainingCshar.Encoder
 {
-    internal sealed class SqlAccess : ISqlAccess
+    public sealed class SqlAccess : ISqlAccess
     {
         private readonly string sql_avanzado;
         public string db { get => sql_avanzado; }
