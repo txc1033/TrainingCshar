@@ -24,7 +24,6 @@ namespace CsharView
         private const string carpeta = @"D:\TrainingDb\";
         private const string titulo = "Error";
         private SqlConnection sqlConnection;
-        private CultureInfo region =  new CultureInfo("es-CL");
 
         public WpfDataBaseTask()
         {
@@ -44,7 +43,10 @@ namespace CsharView
 
         private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
         {
-            GuardarCsv(DGPersona);
+            if (DGPersona.Items.Count > 1)
+                GuardarCsv(DGPersona);
+            else
+                MessageBox.Show($"No puedes guardar una tabla vacia!!", titulo, MessageBoxButton.OK);
         }
 
         private void GuardarCsv(DataGrid dGPersona)
@@ -136,12 +138,75 @@ namespace CsharView
 
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
         {
-            GuardaDGenDB(DGPersona);
+            if (DGPersona.Items.Count > 1)
+                GuardaDGenDB(DGPersona);
+            else
+                MessageBox.Show($"No puedes exportar una tabla vacia!!", titulo, MessageBoxButton.OK);
         }
 
         private void GuardaDGenDB(DataGrid dGPersona)
         {
-            throw new NotImplementedException();
+            DataTable dtPersona = new DataTable();
+            dtPersona.Columns.Add("per_nombre", typeof(string));
+            dtPersona.Columns.Add("per_apellido", typeof(string));
+            dtPersona.Columns.Add("per_edad", typeof(int));
+            dtPersona.Columns.Add("per_rut", typeof(int));
+            dtPersona.Columns.Add("per_dv", typeof(char));
+            dtPersona.Columns.Add("per_fechaNacimiento", typeof(DateTime));
+
+            foreach (var item in dGPersona.Items)
+            {
+                DataGridRow row = (DataGridRow)dGPersona.ItemContainerGenerator.ContainerFromItem(item);
+                if (row == null)
+                    continue;
+                var fila = dtPersona.NewRow();
+                for (int j = 1; j < dGPersona.Columns.Count; j++)
+                {
+                    var dato = dGPersona.Columns[j].GetCellContent(row);
+                    //Fila += string.IsNullOrEmpty(((TextBlock)dato).Text) ? "" : ((TextBlock)dato).Text + ",";
+                    var xd = dtPersona.Columns[j-1].DataType.Name.ToLower();
+                    switch (xd)
+                    {
+                        case "int32":
+                            if (((TextBlock)dato).Text != "")
+                                fila[j-1] = Int32.Parse(((TextBlock)dato).Text);
+                            break;
+                        case "char":
+                            if (((TextBlock)dato).Text != "")
+                                fila[j-1] = Char.Parse(((TextBlock)dato).Text);
+                            break;
+                        case "datetime":
+                            if (((TextBlock)dato).Text != "") { 
+                                string fecha = ((TextBlock)dato).Text;
+                                fila[j-1] = DateTime.Parse(fecha,new CultureInfo("us-US"));
+                                }
+                            break;
+
+                        default:
+                            fila[j-1] = ((TextBlock)dato).Text;
+                            break;
+                    }
+
+                }
+                if (fila[0] != "")
+                    dtPersona.Rows.Add(fila);
+            }
+
+            if (dtPersona is null)
+            {
+                return;
+            }
+            SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasEnTabla]", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            sqlCmd.Parameters.Add("@tabla", SqlDbType.Structured).Value = dtPersona;
+
+            int cantidadAgregadaSql = sqlCmd.ExecuteNonQuery();
+
+            MessageBox.Show($"Se han agregado {cantidadAgregadaSql.ToString()} de registros a la base de datos: {sqlConnection.Database}", titulo, MessageBoxButton.OK);
+
         }
 
         private void btnLoadDb_Click(object sender, RoutedEventArgs e)
@@ -227,13 +292,13 @@ namespace CsharView
                             {
                                 Persona per = new Persona()
                                 {
-                                    per_idPersona = int.Parse(rows[0], region),
+                                    per_idPersona = int.Parse(rows[0]),
                                     per_nombre = rows[1],
                                     per_apellido = rows[2],
-                                    per_edad = int.Parse(rows[3], region),
-                                    per_rut = int.Parse(rows[4], region),
+                                    per_edad = int.Parse(rows[3]),
+                                    per_rut = int.Parse(rows[4]),
                                     per_dv = rows[5],
-                                    per_fechaNacimiento = DateTime.Parse(rows[6], region)
+                                    per_fechaNacimiento = DateTime.Parse(rows[6], new CultureInfo("es-CL"))
 
                                 };
                                 personasCsv.Add(per);
