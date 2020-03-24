@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using TrainingCshar.Examples;
+using TrainingCshar.Formulaio;
 
 namespace CsharView
 {
@@ -127,7 +128,13 @@ namespace CsharView
             this.Show();
         }
 
+        private void btnForm_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            FStart fst = new FStart();
+            fst.ShowDialog();
+            this.Show();
 
-
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace CsharView
                 {
                     if (DGPersona.Items.Count > 1)
                     {
-                        string archivo = $"{DGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm", region)}.csv";
+                        string archivo = $"{DGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm",new CultureInfo("us-US"))}.csv";
                         StringBuilder texto = new StringBuilder(100);
                         string columna = "";
                         int countColumns = dGPersona.Columns.Count;
@@ -253,7 +253,7 @@ namespace CsharView
                     per_idPersona = contador,
                     per_nombre = (string)rows[0],
                     per_apellido = (string)rows[1],
-                    per_edad = int.Parse(rows[2].ToString(), region),
+                    per_edad = int.Parse(rows[2].ToString()),
                     per_rut = (int)rows[3],
                     per_dv = (string)rows[4],
                     per_fechaNacimiento = (DateTime)rows[5]

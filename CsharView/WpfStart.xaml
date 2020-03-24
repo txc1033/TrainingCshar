@@ -16,10 +16,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <ComboBox Name="cmbAcciones" Grid.Column="0" Grid.Row="0" Margin="10" Text="Seleccione un methodo..."></ComboBox>
-        <Button Click="BtnEjecutarClick" Grid.Column="1" Grid.Row="0" Margin="10">Ejecutar:</Button>
+        <Button Click="BtnEjecutarClick" Grid.Column="1" Grid.Row="0" Margin="10,10,182,10">Ejecutar:</Button>
         <Border  Grid.ColumnSpan="2" Grid.Row="1" Margin="20" BorderBrush="Gray" BorderThickness="2">
             <TextBox Name="txtResultado"
                    FontSize="25" Margin="8" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" MinWidth="732" MinHeight="309">Bienvenido a TrainingCshar</TextBox>
         </Border>
+        <Button x:Name="btnForm" Content="Abrir en Form" Grid.Column="1" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" Width="147" Height="30" Click="btnForm_Click"/>
     </Grid>
 </Window>
