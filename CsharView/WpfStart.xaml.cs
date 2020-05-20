@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using TrainingCshar.Examples;
 using TrainingCshar.Formulaio;
+using System.Globalization;
 
 namespace CsharView
 {
@@ -14,12 +15,10 @@ namespace CsharView
     public partial class MainWindow : Window
     {
         private readonly MethodInfo[] metodosEjemplos;
-        private readonly Type tiposEjemplo;
         public MainWindow()
         {
             InitializeComponent();
-            tiposEjemplo = typeof(Ejemplos);
-            metodosEjemplos = tiposEjemplo.GetMethods();
+            metodosEjemplos = typeof(Ejemplos).GetMethods();
             InitializeCombobox(metodosEjemplos);
         }
 
@@ -38,7 +37,7 @@ namespace CsharView
                 cmbAcciones.Items.Add(accion);
                 foreach (MethodInfo metodoObject in metodosObject)
                 {
-                    if (accion.Equals(metodoObject.Name))
+                    if (accion.Equals(metodoObject.Name, StringComparison.InvariantCultureIgnoreCase))
                     {
                         cmbAcciones.Items.Remove(accion);
                     }
@@ -91,7 +90,7 @@ namespace CsharView
                         else if (parametros[0].Name == "numero")
                         {
                             string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {accion}";
-                            int valor = int.Parse(Interaction.InputBox(mensaje));
+                            int valor = int.Parse(Interaction.InputBox(mensaje), CultureInfo.CurrentCulture);
                             respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method, valor);
                         }
                         else

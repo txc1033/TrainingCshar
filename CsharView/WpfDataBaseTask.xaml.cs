@@ -24,6 +24,7 @@ namespace CsharView
         private const string carpeta = @"D:\TrainingDb\";
         private const string titulo = "Error";
         private SqlConnection sqlConnection;
+        private CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
         public WpfDataBaseTask()
         {
@@ -133,7 +134,8 @@ namespace CsharView
                 DGPersona.Columns[5].Header = "Digito Verificador";
                 DGPersona.Columns[6].Header = "Fecha Nacimiento";
             }
-               
+            
+            
         }
 
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
@@ -162,40 +164,38 @@ namespace CsharView
                 var fila = dtPersona.NewRow();
                 for (int j = 1; j < dGPersona.Columns.Count; j++)
                 {
-                    var dato = dGPersona.Columns[j].GetCellContent(row);
-                    //Fila += string.IsNullOrEmpty(((TextBlock)dato).Text) ? "" : ((TextBlock)dato).Text + ",";
-                    var xd = dtPersona.Columns[j-1].DataType.Name.ToLower();
-                    switch (xd)
+                    FrameworkElement dato = dGPersona.Columns[j].GetCellContent(row);
+                    string tipo = dtPersona.Columns[j-1].DataType.Name.ToLower(currentCulture);
+                    string datoText = ((TextBlock)dato).Text;
+                    if (!string.IsNullOrEmpty(datoText))
                     {
-                        case "int32":
-                            if (((TextBlock)dato).Text != "")
-                                fila[j-1] = Int32.Parse(((TextBlock)dato).Text);
-                            break;
-                        case "char":
-                            if (((TextBlock)dato).Text != "")
-                                fila[j-1] = Char.Parse(((TextBlock)dato).Text);
-                            break;
-                        case "datetime":
-                            if (((TextBlock)dato).Text != "") { 
-                                string fecha = ((TextBlock)dato).Text;
-                                fila[j-1] = DateTime.Parse(fecha,new CultureInfo("us-US"));
-                                }
-                            break;
+                        switch (tipo)
+                        {
+                            case "int32":
+                                    fila[j - 1] = Int32.Parse(datoText, currentCulture);
+                                break;
+                            case "char":
+                                    fila[j - 1] = Char.Parse(datoText);
+                                break;
+                            case "datetime":
+                                    fila[j - 1] = DateTime.Parse(datoText, new CultureInfo("us-US"));
+                                break;
 
-                        default:
-                            fila[j-1] = ((TextBlock)dato).Text;
-                            break;
+                            default:
+                                fila[j - 1] = datoText;
+                                break;
+                        }
                     }
-
                 }
-                if (fila[0] != "")
+                if (!string.IsNullOrEmpty(fila[0].ToString()))
                     dtPersona.Rows.Add(fila);
             }
-
+            
             if (dtPersona is null)
             {
                 return;
             }
+            dtPersona.Rows.RemoveAt(dtPersona.Rows.Count - 1);
             SqlCommand sqlCmd = new SqlCommand("[colegio].[pa_PersonasEnTabla]", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
@@ -205,7 +205,7 @@ namespace CsharView
 
             int cantidadAgregadaSql = sqlCmd.ExecuteNonQuery();
 
-            MessageBox.Show($"Se han agregado {cantidadAgregadaSql.ToString()} de registros a la base de datos: {sqlConnection.Database}", titulo, MessageBoxButton.OK);
+            MessageBox.Show($"Se han agregado {cantidadAgregadaSql} de registros a la base de datos: {sqlConnection.Database}", titulo, MessageBoxButton.OK);
 
         }
 
@@ -253,7 +253,7 @@ namespace CsharView
                     per_idPersona = contador,
                     per_nombre = (string)rows[0],
                     per_apellido = (string)rows[1],
-                    per_edad = int.Parse(rows[2].ToString()),
+                    per_edad = int.Parse(rows[2].ToString(),currentCulture),
                     per_rut = (int)rows[3],
                     per_dv = (string)rows[4],
                     per_fechaNacimiento = (DateTime)rows[5]
@@ -292,11 +292,11 @@ namespace CsharView
                             {
                                 Persona per = new Persona()
                                 {
-                                    per_idPersona = int.Parse(rows[0]),
+                                    per_idPersona = int.Parse(rows[0],currentCulture),
                                     per_nombre = rows[1],
                                     per_apellido = rows[2],
-                                    per_edad = int.Parse(rows[3]),
-                                    per_rut = int.Parse(rows[4]),
+                                    per_edad = int.Parse(rows[3],currentCulture),
+                                    per_rut = int.Parse(rows[4],currentCulture),
                                     per_dv = rows[5],
                                     per_fechaNacimiento = DateTime.Parse(rows[6], new CultureInfo("es-CL"))
 
@@ -305,7 +305,6 @@ namespace CsharView
                             }
 
                         }
-                             
                     }
                     catch (Exception e)
                     {
