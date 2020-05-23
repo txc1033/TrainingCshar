@@ -64,8 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Algorithms\Algoritmos.cs" />
+    <Compile Include="Interfaces\Data Process\IGestionDB.cs" />
+    <Compile Include="Interfaces\Data Process\IGestionFile.cs" />
     <Compile Include="Class\Encoder\Codificacion.cs" />
     <Compile Include="Class\Ejemplos.cs" />
+    <Compile Include="Class\Data Process\GestionDB.cs" />
+    <Compile Include="Class\Data Process\GestionFile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\Encoder\ISqlAccess.cs" />
     <Compile Include="Class\Encoder\SqlAccess.cs" />
