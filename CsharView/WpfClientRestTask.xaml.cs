@@ -12,6 +12,7 @@ namespace CsharView
 
         public WpfClientRestTask()
         {
+            this.txtUrl = new System.Windows.Controls.TextBox();
             InitializeComponent();
         }
 
@@ -57,12 +58,8 @@ namespace CsharView
 
         private void tipoEnvCmb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            try
-            {
                 bool estado = tipoEnvCmb.SelectedIndex > 0 ? true : false;
                 txtUrl.IsEnabled = estado;
-            }
-            catch { }
         }
     }
 }

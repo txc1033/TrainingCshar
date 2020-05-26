@@ -22,12 +22,14 @@ namespace TrainingCshar.Data_Process
 
         }
 
+        /// <summary>
+        /// Apartado para wpf
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<Persona> CargarCsv()
         {
             return _CargarCsv();
-        }
-
-
+        } 
         public bool GuardarCsv(DataGrid dGPersona)
         {
             return _GuardarCsv(dGPersona);
@@ -83,7 +85,6 @@ namespace TrainingCshar.Data_Process
 
             return personasCsv;
         }
-
         private bool _GuardarCsv(DataGrid dGPersona)
         {
 
@@ -156,6 +157,11 @@ namespace TrainingCshar.Data_Process
             }
             return true;
         }
+
+        /// <summary>
+        /// Apartado para form
+        /// </summary>
+        /// <returns></returns>
 
 
     }

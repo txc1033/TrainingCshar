@@ -226,8 +226,6 @@
             this.MinimumSize = new System.Drawing.Size(803, 336);
             this.Name = "FDataBaseTask";
             this.Text = "Funciones de Db";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FDataBaseTask_FormClosed);
-            this.Load += new System.EventHandler(this.FDataBaseTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGPersona)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.personaBS)).EndInit();
             this.ResumeLayout(false);

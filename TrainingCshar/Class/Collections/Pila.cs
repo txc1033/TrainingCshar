@@ -2,12 +2,12 @@
 
 namespace TrainingCshar.Collections
 {
-    public class Persona
+    public class PersonaPila
     {
         private readonly int _edad;
         private readonly string _nombre;
 
-        public Persona(string nombre, int edad = 15)
+        public PersonaPila(string nombre, int edad = 15)
         {
             this._nombre = nombre;
             this._edad = edad;
@@ -19,14 +19,14 @@ namespace TrainingCshar.Collections
 
     internal class Pila : IPila
     {
-        private readonly Stack<Persona> pilaPersona = new Stack<Persona>();
+        private readonly Stack<PersonaPila> pilaPersona = new Stack<PersonaPila>();
 
-        public void Agregar(Persona persona)
+        public void Agregar(PersonaPila persona)
         {
             pilaPersona.Push(persona);
         }
 
-        public void Agregar(Stack<Persona> pilaPersonas)
+        public void Agregar(Stack<PersonaPila> pilaPersonas)
         {
             foreach (var persona in pilaPersonas)
             {
@@ -39,9 +39,9 @@ namespace TrainingCshar.Collections
             return $"Cantidad de elementos en Pila: {pilaPersona.Count} ";
         }
 
-        public Stack<Persona> Clonar()
+        public Stack<PersonaPila> Clonar()
         {
-            Stack<Persona> pilaCopia = new Stack<Persona>();
+            Stack<PersonaPila> pilaCopia = new Stack<PersonaPila>();
 
             foreach (var persona in pilaPersona)
             {

@@ -97,8 +97,8 @@ namespace TrainingCshar.Examples
             Console.WriteLine("//////PILA//////////");
             Pila pilaPersona = new Pila();
 
-            Persona pepe = new Persona("Pepe", 25);
-            Persona juan = new Persona("Juan", 40);
+            PersonaPila pepe = new PersonaPila("Pepe", 25);
+            PersonaPila juan = new PersonaPila("Juan", 40);
 
             pilaPersona.Agregar(pepe);
             pilaPersona.Agregar(juan);

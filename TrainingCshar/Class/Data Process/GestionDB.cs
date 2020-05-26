@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows.Controls;
 using System.Globalization;
 using TrainingCshar.Encoder;
+using System.Collections.Generic;
 
 namespace TrainingCshar.Data_Process
 {
@@ -19,19 +20,19 @@ namespace TrainingCshar.Data_Process
         {
         }
 
-        public ObservableCollection<Persona> CargarDB()
+        public List<Persona> CargarEnDB()
         {
-            return _CargarDB(inicializaConexion());
+            return _CargarEnDB(inicializaConexion());
+        }
+        public bool GuardarEnDB(List<Persona> personas)
+        {
+            return _GuardarEnDB(personas,inicializaConexion());
         }
 
-        public bool GuardaDGenDB(DataGrid dGPersona)
-        {
-            return _GuardaDGenDB(dGPersona, inicializaConexion());
-        }
 
-        private ObservableCollection<Persona> _CargarDB(SqlConnection sqlConnection)
+        private List<Persona> _CargarEnDB(SqlConnection sqlConnection)
         {
-            ObservableCollection<Persona> personasDb = new ObservableCollection<Persona>();
+            List<Persona> personasDb = new List<Persona>();
 
             var seed = Environment.TickCount;
             var random = new Random(seed);
@@ -51,8 +52,6 @@ namespace TrainingCshar.Data_Process
             int contador = 1;
             foreach (DataRow rows in dt.Rows)
             {
-
-
                 Persona persona = new Persona()
                 {
                     per_idPersona = contador,
@@ -66,12 +65,9 @@ namespace TrainingCshar.Data_Process
                 personasDb.Add(persona);
                 contador++;
             }
-
-
             return personasDb;
         }
-
-        private bool _GuardaDGenDB(DataGrid dGPersona, SqlConnection sqlConnection)
+        private bool _GuardarEnDB(List<Persona> personas, SqlConnection sqlConnection)
         {
             try
             {
@@ -83,39 +79,16 @@ namespace TrainingCshar.Data_Process
                 dtPersona.Columns.Add("per_dv", typeof(char));
                 dtPersona.Columns.Add("per_fechaNacimiento", typeof(DateTime));
 
-                foreach (var item in dGPersona.Items)
+                foreach (Persona persona in personas)
                 {
-                    DataGridRow row = (DataGridRow)dGPersona.ItemContainerGenerator.ContainerFromItem(item);
-                    if (row == null)
-                        continue;
-                    var fila = dtPersona.NewRow();
-                    for (int j = 1; j < dGPersona.Columns.Count; j++)
-                    {
-                        FrameworkElement dato = dGPersona.Columns[j].GetCellContent(row);
-                        string tipo = dtPersona.Columns[j - 1].DataType.Name.ToLower(currentCulture);
-                        string datoText = ((TextBlock)dato).Text;
-                        if (!string.IsNullOrEmpty(datoText))
-                        {
-                            switch (tipo)
-                            {
-                                case "int32":
-                                    fila[j - 1] = Int32.Parse(datoText, currentCulture);
-                                    break;
-                                case "char":
-                                    fila[j - 1] = Char.Parse(datoText);
-                                    break;
-                                case "datetime":
-                                    fila[j - 1] = DateTime.Parse(datoText, currentCulture);
-                                    break;
-
-                                default:
-                                    fila[j - 1] = datoText;
-                                    break;
-                            }
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(fila[0].ToString()))
-                        dtPersona.Rows.Add(fila);
+                    var dataPersona = dtPersona.NewRow();
+                    dataPersona[0] = persona.per_nombre;
+                    dataPersona[1] = persona.per_apellido;
+                    dataPersona[2] = persona.per_edad;
+                    dataPersona[3] = persona.per_rut;
+                    dataPersona[4] = persona.per_dv;
+                    dataPersona[5] = persona.per_fechaNacimiento;
+                    dtPersona.Rows.Add(dataPersona);
                 }
 
                 if (dtPersona is null)
@@ -141,7 +114,6 @@ namespace TrainingCshar.Data_Process
             }
             return true;
         }
-
         private SqlConnection inicializaConexion()
         {
             SqlConnection sqlConnection = new SqlConnection(Codificacion.Cadena());

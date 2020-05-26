@@ -4,13 +4,13 @@ namespace TrainingCshar.Collections
 {
     internal interface IPila
     {
-        void Agregar(Persona persona);
+        void Agregar(PersonaPila persona);
 
-        void Agregar(Stack<Persona> stack);
+        void Agregar(Stack<PersonaPila> stack);
 
         string Cantidad();
 
-        Stack<Persona> Clonar();
+        Stack<PersonaPila> Clonar();
 
         void Eliminar(bool todos);
 

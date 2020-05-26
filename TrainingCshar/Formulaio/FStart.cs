@@ -1,28 +1,25 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows.Forms;
+using TrainingCshar.Examples;
 
 namespace TrainingCshar.Formulaio
 {
     public partial class FStart : Form
     {
-        private readonly MethodInfo[] metodosEjemplos;
-        private readonly Type tiposEjemplo;
+        private Orquestador orquestador;
         public FStart()
         {
+            orquestador = new Orquestador();
             InitializeComponent();
-            tiposEjemplo = typeof(Examples.Ejemplos);
-            metodosEjemplos = tiposEjemplo.GetMethods();
-            InitializeCombobox(metodosEjemplos);
+            InitializeCombobox();
         }
 
         private void BtnEjecutar_Click(object sender, EventArgs e)
         {
             txtResultado.Clear();
             string accion = cmbAcciones.Text;
-            List<string> resultados = EjecutaAccion(accion);
+            List<string> resultados = orquestador.EjecutaAccion(accion);
             foreach (string resultado in resultados)
             {
                 txtResultado.Text += $"{resultado} {Environment.NewLine}";
@@ -66,67 +63,15 @@ namespace TrainingCshar.Formulaio
             btnEjecutar.Text = indiceAcciones > 0 ? $"Ejecutar: {cmbAcciones.Text}" : "Ejecutar: Nada";
         }
 
-        private List<string> EjecutaAccion(string accion)
-        {
-            try
-            {
-                Examples.Ejemplos Ejemplos = new Examples.Ejemplos();
 
-                foreach (MethodInfo metodo in metodosEjemplos)
-                {
-                    ParameterInfo[] parametros = metodo.GetParameters();
-
-                    if (metodo.Name == accion)
-                    {
-                        List<string> respuestas;
-                        if (parametros.Length < 1)
-                        {
-                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method);
-                        }
-                        else if (parametros[0].Name == "numero")
-                        {
-                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {accion}";
-                            int valor = int.Parse(Interaction.InputBox(mensaje));
-                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method, valor);
-                        }
-                        else
-                        {
-                            string mensaje = $"Favor escribe un {parametros[0].Name} para la tarea {accion}";
-                            string valor = Interaction.InputBox(mensaje);
-                            respuestas = (List<string>)Interaction.CallByName(Ejemplos, accion, CallType.Method, valor);
-                        }
-                        return respuestas;
-                    }
-                }
-
-                return new List<string> { $"Accion {accion} No encontrada" };
-            }
-            catch (Exception e)
-            {
-                return new List<string> { $"Error en {accion}: {e.Message}" };
-            }
-        }
-
-        private void InitializeCombobox(MethodInfo[] listaMetodos)
+        private void InitializeCombobox()
         {
             cmbAcciones.Items.Add("Seleccione Una Accion...");
             cmbAcciones.SelectedIndex = 0;
-
-            Type tipoObject = typeof(object);
-
-            MethodInfo[] metodosObject = tipoObject.GetMethods();
-
-            foreach (MethodInfo metodo in listaMetodos)
+            List<string> acciones = orquestador.GetAcciones();
+            foreach (var accion in acciones)
             {
-                string accion = metodo.Name;
                 cmbAcciones.Items.Add(accion);
-                foreach (MethodInfo metodoObject in metodosObject)
-                {
-                    if (accion.Equals(metodoObject.Name))
-                    {
-                        cmbAcciones.Items.Remove(accion);
-                    }
-                }
             }
         }
         private void OpenFApi()

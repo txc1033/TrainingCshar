@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using TrainingCshar.Models;
 using TrainingCshar.Data_Process;
 
 namespace CsharView
@@ -19,13 +22,6 @@ namespace CsharView
             InitializeComponent();
             gestionFile = new GestionFile();
             gestionDb = new GestionDB();
-            
-        }
-
-        private void btnLoadDb_Click(object sender, RoutedEventArgs e)
-        {
-            DGPersona.ItemsSource = gestionDb.CargarDB();
-            ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
         }
 
         private void btnLoadCSV_Click(object sender, RoutedEventArgs e)
@@ -36,21 +32,21 @@ namespace CsharView
 
         private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
         {
-
             if (DGPersona.Items.Count > 1)
                 gestionFile.GuardarCsv(DGPersona);
             else
                 MessageBox.Show($"No puedes guardar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
-
         }
 
+        private void btnLoadDb_Click(object sender, RoutedEventArgs e)
+        {
+            DGPersona.ItemsSource = gestionDb.CargarEnDB();
+            ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
+        }
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
         {
-             if (DGPersona.Items.Count > 1)
-                gestionDb.GuardaDGenDB(DGPersona);
-            else
-                MessageBox.Show($"No puedes exportar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
- 
+            if(ConvertDataGridToList().Count > 1)
+               gestionDb.GuardarEnDB(ConvertDataGridToList());
         }
 
         private void DGPersona_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -71,6 +67,20 @@ namespace CsharView
                 DGPersona.Columns[5].Header = "Digito Verificador";
                 DGPersona.Columns[6].Header = "Fecha Nacimiento";
             }
+        }
+
+        private List<Persona> ConvertDataGridToList()
+        {
+            if (DGPersona.Items.Count > 1)
+            {
+               return DGPersona.ItemsSource.Cast<Persona>().ToList();
+            }
+            else
+            {
+                MessageBox.Show($"No puedes exportar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
+                return null;
+            }
+                
         }
     }
 }

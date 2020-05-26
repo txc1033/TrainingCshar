@@ -7,4 +7,5 @@
             return numero > 0 ? numero * Factorial(numero - 1) : 1;
         }
     }
+
 }
