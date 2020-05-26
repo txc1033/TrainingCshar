@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Collections.ObjectModel;
-using System.Windows;
-using TrainingCshar.Models;
 using System.Data;
-using System.Windows.Controls;
+using System.Data.SqlClient;
+using System.Windows;
+using System.Collections.Generic;
 using System.Globalization;
 using TrainingCshar.Encoder;
-using System.Collections.Generic;
+using TrainingCshar.Models;
+
 
 namespace TrainingCshar.Data_Process
 {

@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using System.Text;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace TrainingCshar.Data_Process
 {
@@ -22,21 +23,17 @@ namespace TrainingCshar.Data_Process
 
         }
 
-        /// <summary>
-        /// Apartado para wpf
-        /// </summary>
-        /// <returns></returns>
-        public ObservableCollection<Persona> CargarCsv()
+        public List<Persona> CargarEnCsv()
         {
-            return _CargarCsv();
-        } 
-        public bool GuardarCsv(DataGrid dGPersona)
-        {
-            return _GuardarCsv(dGPersona);
+            return _CargarEnCsv();
         }
-        private ObservableCollection<Persona> _CargarCsv()
+        public bool GuardarEnCsv(List<Persona> personas)
         {
-            ObservableCollection<Persona> personasCsv = new ObservableCollection<Persona>();
+            return _GuardarEnCsv(personas);
+        }
+        private List<Persona> _CargarEnCsv()
+        {
+            List<Persona> personasCsv = new List<Persona>();
             OpenFileDialog buscaArchivo = new OpenFileDialog
             {
                 InitialDirectory = carpeta,
@@ -85,42 +82,30 @@ namespace TrainingCshar.Data_Process
 
             return personasCsv;
         }
-        private bool _GuardarCsv(DataGrid dGPersona)
+        private bool _GuardarEnCsv(List<Persona> personas)
         {
-
             try
             {
-                if (dGPersona.Items.Count > 1)
+                if (personas.Count > 1)
                 {
-                    string archivo = $"{dGPersona.Name}_{DateTime.Now.ToString("dd-MM-yyyy_HHmm", currentCulture)}.csv";
+                    string archivo = $"DGPersona_{DateTime.Now.ToString("dd-MM-yyyy_HHmm", currentCulture)}.csv";
                     StringBuilder texto = new StringBuilder(2655, 28000);
-                    string columna = "";
-                    int countColumns = dGPersona.Columns.Count;
-                    for (int j = 0; j < countColumns; j++)
-                    {
-                        columna += dGPersona.Columns[j].Header + (j < countColumns - 1 ? "," : "");
-                    }
+                    string columna = "ID,Nombre,Apellidos,Edad,Rut,Digito Verificador,Fecha Nacimiento";
 
                     texto.AppendLine(columna);
                     ///<summary>
                     /// Se recorre las filas y se ingresa la informacion en el stringbuilder
                     /// </summary>
-                    foreach (var item in dGPersona.Items)
+                    int contador = 1;
+                    foreach (var persona in personas)
                     {
-                        DataGridRow row = (DataGridRow)dGPersona.ItemContainerGenerator.ContainerFromItem(item);
-                        string Fila = "";
-                        if (row == null)
-                            continue;
-                        int countFilas = dGPersona.Columns.Count;
-                        for (int j = 0; j < countFilas; j++)
-                        {
-                            FrameworkElement dato = dGPersona.Columns[j].GetCellContent(row);
-                            string datoText = ((TextBlock)dato).Text;
-                            if (!string.IsNullOrEmpty(datoText))
-                                Fila += datoText + (j < countFilas - 1 ? "," : "");
-                        }
-                        if (!string.IsNullOrEmpty(Fila))
-                            texto.AppendLine(Fila);
+
+                        string fila = $"{contador},{persona.per_nombre},{persona.per_apellido},";
+                        fila += $"{persona.per_edad},{persona.per_rut},{persona.per_dv},{persona.per_fechaNacimiento}";
+                        if (!string.IsNullOrEmpty(fila))
+                            texto.AppendLine(fila);
+
+                        contador++;
 
                     }
                     ///<summary>
@@ -157,12 +142,6 @@ namespace TrainingCshar.Data_Process
             }
             return true;
         }
-
-        /// <summary>
-        /// Apartado para form
-        /// </summary>
-        /// <returns></returns>
-
 
     }
 }

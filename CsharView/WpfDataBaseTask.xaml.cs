@@ -26,16 +26,14 @@ namespace CsharView
 
         private void btnLoadCSV_Click(object sender, RoutedEventArgs e)
         {
-            DGPersona.ItemsSource = gestionFile.CargarCsv();
+            DGPersona.ItemsSource = gestionFile.CargarEnCsv();
             ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
         }
 
         private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
         {
-            if (DGPersona.Items.Count > 1)
-                gestionFile.GuardarCsv(DGPersona);
-            else
-                MessageBox.Show($"No puedes guardar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
+            if (ConvertDataGridToList().Count > 1)
+                gestionFile.GuardarEnCsv(ConvertDataGridToList());
         }
 
         private void btnLoadDb_Click(object sender, RoutedEventArgs e)
