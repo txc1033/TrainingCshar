@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using Microsoft.VisualBasic;
-
 
 namespace TrainingCshar.Examples
 {
@@ -85,8 +84,5 @@ namespace TrainingCshar.Examples
                 return new List<string> { $"Error en {accion}: {e.Message}" };
             }
         }
-
-
-    
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Windows;
 using System.Collections.Generic;
+using System.Windows;
 using TrainingCshar.Examples;
 using TrainingCshar.Formulaio;
-
 
 namespace CsharView
 {
@@ -13,6 +12,7 @@ namespace CsharView
     public partial class MainWindow : Window
     {
         private Orquestador orquestador;
+
         public MainWindow()
         {
             orquestador = new Orquestador();
@@ -50,17 +50,15 @@ namespace CsharView
                 case "BaseDatos":
                     if (txtResultado.Text.Contains("Open"))
                     {
-                       OpenFDb();
+                        OpenFDb();
                     }
                     break;
             }
         }
 
-       
-
         private void OpenFApi()
         {
-           WpfClientRestTask fApi = new WpfClientRestTask();
+            WpfClientRestTask fApi = new WpfClientRestTask();
             this.Hide();
             fApi.ShowDialog();
             this.Show();
@@ -81,7 +79,5 @@ namespace CsharView
             fst.ShowDialog();
             this.Show();
         }
-
-
     }
 }

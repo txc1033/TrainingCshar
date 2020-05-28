@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using TrainingCshar.Encoder;
 using TrainingCshar.Models;
-
 
 namespace TrainingCshar.Data_Process
 {
@@ -23,11 +22,11 @@ namespace TrainingCshar.Data_Process
         {
             return _CargarEnDB(inicializaConexion());
         }
+
         public bool GuardarEnDB(List<Persona> personas)
         {
-            return _GuardarEnDB(personas,inicializaConexion());
+            return _GuardarEnDB(personas, inicializaConexion());
         }
-
 
         private List<Persona> _CargarEnDB(SqlConnection sqlConnection)
         {
@@ -45,7 +44,6 @@ namespace TrainingCshar.Data_Process
             };
 
             sqlCmd.Parameters.Add(new SqlParameter("@cantidad", rango));
-
 
             dt.Load(sqlCmd.ExecuteReader());
             int contador = 1;
@@ -68,6 +66,7 @@ namespace TrainingCshar.Data_Process
             sqlConnection.Close();
             return personasDb;
         }
+
         private bool _GuardarEnDB(List<Persona> personas, SqlConnection sqlConnection)
         {
             try
@@ -119,6 +118,7 @@ namespace TrainingCshar.Data_Process
             }
             return true;
         }
+
         private SqlConnection inicializaConexion()
         {
             SqlConnection sqlConnection = new SqlConnection(Codificacion.Cadena());
@@ -132,6 +132,5 @@ namespace TrainingCshar.Data_Process
             }
             return sqlConnection;
         }
-
     }
 }

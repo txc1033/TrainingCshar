@@ -18,17 +18,14 @@ namespace CsharView
 
         private void enviarBtn_Click(object sender, RoutedEventArgs e)
         {
-          
         }
 
         private void serializaBtn_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void deserializaBtn_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void jsonChck_Checked(object sender, RoutedEventArgs e)
@@ -49,7 +46,7 @@ namespace CsharView
 
         private void txtUrl_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-           Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             bool isUri = reg.IsMatch(txtUrl.Text);
             enviarBtn.IsEnabled = isUri;
@@ -58,8 +55,8 @@ namespace CsharView
 
         private void tipoEnvCmb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-                bool estado = tipoEnvCmb.SelectedIndex > 0 ? true : false;
-                txtUrl.IsEnabled = estado;
+            bool estado = tipoEnvCmb.SelectedIndex > 0 ? true : false;
+            txtUrl.IsEnabled = estado;
         }
     }
 }

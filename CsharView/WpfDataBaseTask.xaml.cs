@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using TrainingCshar.Models;
 using TrainingCshar.Data_Process;
+using TrainingCshar.Models;
 
 namespace CsharView
 {
@@ -41,10 +41,11 @@ namespace CsharView
             DGPersona.ItemsSource = gestionDb.CargarEnDB();
             ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
         }
+
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
         {
-            if(ConvertDataGridToList().Count > 1)
-               gestionDb.GuardarEnDB(ConvertDataGridToList());
+            if (ConvertDataGridToList().Count > 1)
+                gestionDb.GuardarEnDB(ConvertDataGridToList());
         }
 
         private void DGPersona_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -71,14 +72,13 @@ namespace CsharView
         {
             if (DGPersona.Items.Count > 1)
             {
-               return DGPersona.ItemsSource.Cast<Persona>().ToList();
+                return DGPersona.ItemsSource.Cast<Persona>().ToList();
             }
             else
             {
                 MessageBox.Show($"No puedes exportar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
                 return new List<Persona>();
             }
-                
         }
     }
 }

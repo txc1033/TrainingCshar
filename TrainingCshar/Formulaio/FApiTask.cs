@@ -12,7 +12,6 @@ namespace TrainingCshar.Formulaio
 
         private const string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
 
-
         public FApiTask()
         {
             InitializeComponent();

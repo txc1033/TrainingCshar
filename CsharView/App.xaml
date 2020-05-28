@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:CsharView"
              StartupUri="WpfStart.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

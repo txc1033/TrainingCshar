@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Text;
 using System.Windows;
 using TrainingCshar.Models;
-using System.IO;
-using Microsoft.Win32;
-using System.Windows.Controls;
-using System.Diagnostics;
-using System.Text;
-using System.Globalization;
-using System.Collections.Generic;
 
 namespace TrainingCshar.Data_Process
 {
@@ -20,17 +18,18 @@ namespace TrainingCshar.Data_Process
 
         public GestionFile()
         {
-
         }
 
         public List<Persona> CargarEnCsv()
         {
             return _CargarEnCsv();
         }
+
         public bool GuardarEnCsv(List<Persona> personas)
         {
             return _GuardarEnCsv(personas);
         }
+
         private List<Persona> _CargarEnCsv()
         {
             List<Persona> personasCsv = new List<Persona>();
@@ -51,7 +50,6 @@ namespace TrainingCshar.Data_Process
                     {
                         while (!sr.EndOfStream)
                         {
-
                             string[] rows = sr.ReadLine().Split(',');
                             if (!rows[0].ToString(currentCulture).Equals("ID", StringComparison.CurrentCulture) && !string.IsNullOrEmpty(rows[0].ToString(currentCulture)))
                             {
@@ -64,11 +62,9 @@ namespace TrainingCshar.Data_Process
                                     per_rut = int.Parse(rows[4], currentCulture),
                                     per_dv = rows[5],
                                     per_fechaNacimiento = DateTime.Parse(rows[6], currentCulture)
-
                                 };
                                 personasCsv.Add(per);
                             }
-
                         }
                     }
                     catch (Exception e)
@@ -82,6 +78,7 @@ namespace TrainingCshar.Data_Process
 
             return personasCsv;
         }
+
         private bool _GuardarEnCsv(List<Persona> personas)
         {
             try
@@ -99,14 +96,12 @@ namespace TrainingCshar.Data_Process
                     int contador = 1;
                     foreach (var persona in personas)
                     {
-
                         string fila = $"{contador},{persona.per_nombre},{persona.per_apellido},";
                         fila += $"{persona.per_edad},{persona.per_rut},{persona.per_dv},{persona.per_fechaNacimiento}";
                         if (!string.IsNullOrEmpty(fila))
                             texto.AppendLine(fila);
 
                         contador++;
-
                     }
                     ///<summary>
                     /// Aqui una vez estructurado el cuerpo del csv procedemos a guardarlo
@@ -132,7 +127,6 @@ namespace TrainingCshar.Data_Process
                     {
                         Process.Start("notepad.exe", rutaArchivo);
                     }
-
                 }
                 else
                 {
@@ -147,6 +141,5 @@ namespace TrainingCshar.Data_Process
             }
             return true;
         }
-
     }
 }

@@ -21,6 +21,6 @@
             <TextBox Name="txtResultado"
                    FontSize="25" Margin="8" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" MinWidth="732" MinHeight="309">Bienvenido a TrainingCshar</TextBox>
         </Border>
-        <Button x:Name="btnForm" Content="Abrir en Form" Grid.Column="1" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" Width="147" Height="30" Click="btnForm_Click"/>
+        <Button x:Name="btnForm" Content="Abrir en Form" Grid.Column="1" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" Width="147" Height="30" Click="btnForm_Click" />
     </Grid>
 </Window>

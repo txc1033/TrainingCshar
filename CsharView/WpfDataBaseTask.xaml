@@ -23,6 +23,6 @@
         <TextBlock Name="lbTitle" Grid.Column="2" FontSize="22" FontWeight="Bold" TextDecorations="Underline" TextAlignment="Center" VerticalAlignment="Center">Gestion de datos locales</TextBlock>
         <Button Click="btnLoadCSV_Click" Name="btnLoadCSV" Grid.Column="4" Margin="5,10">Cargar CSV</Button>
         <Button Click="btnSaveCSV_Click" Name="btnSaveCSV" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,10" Width="103" Height="45">Guardar CSV</Button>
-        <DataGrid Name="DGPersona" Grid.ColumnSpan="5" EnableRowVirtualization="False" Margin="0,60,0,5" Grid.RowSpan="2" AutoGeneratingColumn="DGPersona_AutoGeneratingColumn"/>
+        <DataGrid Name="DGPersona" Grid.ColumnSpan="5" EnableRowVirtualization="False" Margin="0,60,0,5" Grid.RowSpan="2" AutoGeneratingColumn="DGPersona_AutoGeneratingColumn" />
     </Grid>
 </Window>

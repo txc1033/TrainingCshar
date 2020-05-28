@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using TrainingCshar.Data_Process;
 using TrainingCshar.Models;
 
@@ -11,6 +11,7 @@ namespace TrainingCshar.Formulaio
         private const string carpeta = @"D:\TrainingDb\";
         private GestionFile gestionFile;
         private GestionDB gestionDb;
+
         public FDataBaseTask()
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace TrainingCshar.Formulaio
                     per_edad = 0,
                     per_idPersona = 0,
                     per_fechaNacimiento = DateTime.MinValue
-                }    
+                }
             };
             DGPersona.DataSource = persona;
         }
@@ -36,18 +37,22 @@ namespace TrainingCshar.Formulaio
         {
             gestionFile.GuardarEnCsv((List<Persona>)DGPersona.DataSource);
         }
+
         private void btnLoadCSV_Click(object sender, EventArgs e)
         {
             DGPersona.DataSource = gestionFile.CargarEnCsv();
         }
+
         private void btnLoadDb_Click(object sender, EventArgs e)
         {
             DGPersona.DataSource = gestionDb.CargarEnDB();
         }
+
         private void btnLocalToDb_Click(object sender, EventArgs e)
         {
             gestionDb.GuardarEnDB((List<Persona>)DGPersona.DataSource);
         }
+
         private void DGPersona_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             int cantidadFilas = DGPersona.Rows.Count;
@@ -57,6 +62,5 @@ namespace TrainingCshar.Formulaio
                 DGPersona.Rows[i - 1].Cells[0].Value = i;
             }
         }
-
     }
 }

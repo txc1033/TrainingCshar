@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace TrainingCshar.Encoder
+﻿namespace TrainingCshar.Encoder
 {
     public sealed class SqlAccess : ISqlAccess
     {

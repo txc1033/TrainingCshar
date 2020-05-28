@@ -8,6 +8,7 @@ namespace TrainingCshar.Formulaio
     public partial class FStart : Form
     {
         private Orquestador orquestador;
+
         public FStart()
         {
             orquestador = new Orquestador();
@@ -63,7 +64,6 @@ namespace TrainingCshar.Formulaio
             btnEjecutar.Text = indiceAcciones > 0 ? $"Ejecutar: {cmbAcciones.Text}" : "Ejecutar: Nada";
         }
 
-
         private void InitializeCombobox()
         {
             cmbAcciones.Items.Add("Seleccione Una Accion...");
@@ -74,6 +74,7 @@ namespace TrainingCshar.Formulaio
                 cmbAcciones.Items.Add(accion);
             }
         }
+
         private void OpenFApi()
         {
             FApiTask fApi = new FApiTask();
