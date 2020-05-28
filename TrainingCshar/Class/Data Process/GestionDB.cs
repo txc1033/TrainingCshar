@@ -64,6 +64,8 @@ namespace TrainingCshar.Data_Process
                 personasDb.Add(persona);
                 contador++;
             }
+
+            sqlConnection.Close();
             return personasDb;
         }
         private bool _GuardarEnDB(List<Persona> personas, SqlConnection sqlConnection)
@@ -111,6 +113,10 @@ namespace TrainingCshar.Data_Process
                 MessageBox.Show($"El formato que se intenta exportar no es valido\n{e.TargetSite}", titulo, MessageBoxButton.OK);
                 return false;
             }
+            finally
+            {
+                sqlConnection.Close();
+            }
             return true;
         }
         private SqlConnection inicializaConexion()
@@ -118,8 +124,6 @@ namespace TrainingCshar.Data_Process
             SqlConnection sqlConnection = new SqlConnection(Codificacion.Cadena());
             try
             {
-                SqlAccess sql = new SqlAccess();
-                Codificacion.Procesar(sql.db, false);
                 sqlConnection.Open();
             }
             catch (Exception)

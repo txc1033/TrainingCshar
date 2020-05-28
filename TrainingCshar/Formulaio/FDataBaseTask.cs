@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using TrainingCshar.Data_Process;
 using System.Collections.Generic;
+using TrainingCshar.Data_Process;
 using TrainingCshar.Models;
 
 namespace TrainingCshar.Formulaio
@@ -16,6 +16,20 @@ namespace TrainingCshar.Formulaio
             InitializeComponent();
             gestionFile = new GestionFile();
             gestionDb = new GestionDB();
+            var persona = new List<Persona>()
+            {
+                new Persona
+                {
+                    per_nombre = "",
+                    per_apellido = "",
+                    per_dv = "",
+                    per_rut = 0,
+                    per_edad = 0,
+                    per_idPersona = 0,
+                    per_fechaNacimiento = DateTime.MinValue
+                }    
+            };
+            DGPersona.DataSource = persona;
         }
 
         private void btnExportToCsv_Click(object sender, EventArgs e)

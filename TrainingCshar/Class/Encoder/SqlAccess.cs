@@ -9,7 +9,12 @@ namespace TrainingCshar.Encoder
 
         public SqlAccess()
         {
-            sql_avanzado = ConfigurationManager.ConnectionStrings["sql_avanzado"].ToString();
+            sql_avanzado = "RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0ASgBBAFYASQBEAEUAU";
+            sql_avanzado += "wBLAFQATwBQADsASQBuAGkAdABpAGEAbAAgAEMAYQB0AGEAb";
+            sql_avanzado += "ABvAGcAPQBzAHEAbABfAGEAdgBhAG4AegBhAGQAbwA7AFAAZ";
+            sql_avanzado += "QByAHMAaQBzAHQAIABTAGUAYwB1AHIAaQB0AHkAIABJAG4AZ";
+            sql_avanzado += "gBvAD0AVAByAHUAZQA7AFUAcwBlAHIAIABJAEQAPQBhAHAAc";
+            sql_avanzado += "ABzADsAUABhAHMAcwB3AG8AcgBkAD0AYQBwAHMAMQAwADMAMQA=";
         }
     }
 }

@@ -76,7 +76,7 @@ namespace CsharView
             else
             {
                 MessageBox.Show($"No puedes exportar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
-                return null;
+                return new List<Persona>();
             }
                 
         }

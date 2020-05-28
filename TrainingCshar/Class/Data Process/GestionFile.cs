@@ -134,6 +134,11 @@ namespace TrainingCshar.Data_Process
                     }
 
                 }
+                else
+                {
+                    MessageBox.Show($"La tabla no tiene suficientes datos para exportarse", titulo, MessageBoxButton.OK);
+                    return false;
+                }
             }
             catch (Exception e)
             {
