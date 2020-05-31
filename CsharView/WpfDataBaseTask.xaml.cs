@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using TrainingCshar.Data_Process;
+using TrainingCshar.Class.Data_Process;
 using TrainingCshar.Models;
 
 namespace CsharView
@@ -14,38 +14,35 @@ namespace CsharView
     public partial class WpfDataBaseTask : Window
     {
         private const string formatDate = "dd-MM-yyyy HH:mm:ss";
-        private GestionFile gestionFile;
-        private GestionDB gestionDb;
+        private IGestion gestion;
 
         public WpfDataBaseTask()
         {
             InitializeComponent();
-            gestionFile = new GestionFile();
-            gestionDb = new GestionDB();
+            InitializeDGPersona();
+            gestion = new Gestion();
         }
 
         private void btnLoadCSV_Click(object sender, RoutedEventArgs e)
         {
-            DGPersona.ItemsSource = gestionFile.CargarEnCsv();
+            DGPersona.ItemsSource = gestion.CargarEnCsv();
             ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
         }
 
         private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
         {
-            if (ConvertDataGridToList().Count > 1)
-                gestionFile.GuardarEnCsv(ConvertDataGridToList());
+                gestion.GuardarEnCsv(ConvertDataGridToList());
         }
 
         private void btnLoadDb_Click(object sender, RoutedEventArgs e)
         {
-            DGPersona.ItemsSource = gestionDb.CargarEnDB();
+            DGPersona.ItemsSource = gestion.CargarEnDB();
             ActualizaNombreColumnasDGPersona(DGPersona.Columns.Count);
         }
 
         private void btnSaveDb_Click(object sender, RoutedEventArgs e)
         {
-            if (ConvertDataGridToList().Count > 1)
-                gestionDb.GuardarEnDB(ConvertDataGridToList());
+                gestion.GuardarEnDB(ConvertDataGridToList());
         }
 
         private void DGPersona_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -68,6 +65,11 @@ namespace CsharView
             }
         }
 
+        private void InitializeDGPersona()
+        {
+            DGPersona.ItemsSource = new List<Persona>();
+        }
+
         private List<Persona> ConvertDataGridToList()
         {
             if (DGPersona.Items.Count > 1)
@@ -76,9 +78,9 @@ namespace CsharView
             }
             else
             {
-                MessageBox.Show($"No puedes exportar una tabla vacia!!", "Aviso", MessageBoxButton.OK);
                 return new List<Persona>();
             }
         }
+
     }
 }

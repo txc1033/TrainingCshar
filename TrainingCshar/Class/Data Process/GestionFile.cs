@@ -10,7 +10,7 @@ using TrainingCshar.Models;
 
 namespace TrainingCshar.Data_Process
 {
-    public class GestionFile : IGestionFile
+    class GestionFile : IGestionFile
     {
         private const string carpeta = @"D:\TrainingDb\";
         private const string titulo = "Error";

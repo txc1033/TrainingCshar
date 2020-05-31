@@ -9,15 +9,12 @@ using TrainingCshar.Models;
 
 namespace TrainingCshar.Data_Process
 {
-    public class GestionDB : IGestionDB
+    class GestionDB : IGestionDB
     {
         private const string titulo = "Error";
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-        public GestionDB()
-        {
-        }
-
+        public GestionDB(){}
         public List<Persona> CargarEnDB()
         {
             return _CargarEnDB(inicializaConexion());
@@ -109,7 +106,7 @@ namespace TrainingCshar.Data_Process
             }
             catch (Exception e)
             {
-                MessageBox.Show($"El formato que se intenta exportar no es valido\n{e.TargetSite}", titulo, MessageBoxButton.OK);
+                MessageBox.Show($"El formato que se intenta exportar no es valido o esta vacio!", titulo, MessageBoxButton.OK);
                 return false;
             }
             finally

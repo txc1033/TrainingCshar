@@ -3,7 +3,7 @@ using TrainingCshar.Models;
 
 namespace TrainingCshar.Data_Process
 {
-    internal interface IGestionFile
+    public interface IGestionFile
     {
         List<Persona> CargarEnCsv();
 

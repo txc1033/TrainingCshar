@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Algorithms\Algoritmos.cs" />
+    <Compile Include="Class\Data Process\Gestion.cs" />
+    <Compile Include="Interfaces\Data Process\IGestion.cs" />
     <Compile Include="Class\Orquestador.cs" />
     <Compile Include="Interfaces\Data Process\IGestionDB.cs" />
     <Compile Include="Interfaces\Data Process\IGestionFile.cs" />
