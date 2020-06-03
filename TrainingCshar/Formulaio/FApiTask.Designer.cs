@@ -71,6 +71,7 @@
             this.btnSend.Text = "Enviar";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Visible = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_ClickAsync);
             // 
             // btnToJson
             // 
@@ -115,7 +116,8 @@
             this.txtJson.Multiline = true;
             this.txtJson.Name = "txtJson";
             this.txtJson.ReadOnly = true;
-            this.txtJson.Size = new System.Drawing.Size(459, 130);
+            this.txtJson.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtJson.Size = new System.Drawing.Size(475, 185);
             this.txtJson.TabIndex = 5;
             this.txtJson.TextChanged += new System.EventHandler(this.TxtJson_TextChanged);
             // 
@@ -129,7 +131,7 @@
             this.tbcJson.Location = new System.Drawing.Point(2, 84);
             this.tbcJson.Name = "tbcJson";
             this.tbcJson.SelectedIndex = 0;
-            this.tbcJson.Size = new System.Drawing.Size(481, 243);
+            this.tbcJson.Size = new System.Drawing.Size(497, 298);
             this.tbcJson.TabIndex = 6;
             // 
             // tbJsonText
@@ -141,7 +143,7 @@
             this.tbJsonText.Location = new System.Drawing.Point(4, 22);
             this.tbJsonText.Name = "tbJsonText";
             this.tbJsonText.Padding = new System.Windows.Forms.Padding(3);
-            this.tbJsonText.Size = new System.Drawing.Size(473, 217);
+            this.tbJsonText.Size = new System.Drawing.Size(489, 272);
             this.tbJsonText.TabIndex = 0;
             this.tbJsonText.Text = "Json retornado";
             this.tbJsonText.UseVisualStyleBackColor = true;
@@ -199,7 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 330);
+            this.ClientSize = new System.Drawing.Size(499, 385);
             this.Controls.Add(this.lbResponse);
             this.Controls.Add(this.tbcJson);
             this.Controls.Add(this.chkTexto);

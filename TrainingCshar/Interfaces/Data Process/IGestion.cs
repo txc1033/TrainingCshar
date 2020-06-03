@@ -2,7 +2,7 @@
 
 namespace TrainingCshar.Class.Data_Process
 {
-    public interface IGestion : IGestionDB, IGestionFile
+    public interface IGestion : IGestionDB, IGestionFile, IGestionApi
     {
     }
 }

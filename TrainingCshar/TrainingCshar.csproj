@@ -44,6 +44,9 @@
       <HintPath>..\..\ClassLibrary1\ClassLibrary1\bin\Debug\ClassVbExtendss.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -65,6 +68,8 @@
   <ItemGroup>
     <Compile Include="Class\Algorithms\Algoritmos.cs" />
     <Compile Include="Class\Data Process\Gestion.cs" />
+    <Compile Include="Class\Data Process\GestionApi.cs" />
+    <Compile Include="Class\Data Process\IGestionApi.cs" />
     <Compile Include="Interfaces\Data Process\IGestion.cs" />
     <Compile Include="Class\Orquestador.cs" />
     <Compile Include="Interfaces\Data Process\IGestionDB.cs" />
@@ -100,6 +105,7 @@
     <Compile Include="Interfaces\Collections\IPila.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\Collections\Pila.cs" />
   </ItemGroup>
@@ -108,6 +114,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\TrainingCshar.Models.Persona.datasource" />
   </ItemGroup>
   <ItemGroup>

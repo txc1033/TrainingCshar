@@ -1,13 +1,16 @@
 ﻿using ClassVbExtendss;
 using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
+using TrainingCshar.Class.Data_Process;
 
 namespace TrainingCshar.Formulaio
 {
     public partial class FApiTask : Form
     {
+        private IGestion gestion;
         private readonly ToolTip tlp = new ToolTip();
 
         private const string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
@@ -15,6 +18,7 @@ namespace TrainingCshar.Formulaio
         public FApiTask()
         {
             InitializeComponent();
+            gestion = new Gestion();
         }
 
         private void LbResponse_Click(object sender, EventArgs e)
@@ -62,6 +66,11 @@ namespace TrainingCshar.Formulaio
             {
                 lbStatus.Text = except.Message.Substring(0, 34);
             }
+        }
+
+        private async void btnSend_ClickAsync(object sender, EventArgs e)
+        {
+            txtJson.Text = await gestion.GetHttpUrl(txtUrl.Text);
         }
     }
 }

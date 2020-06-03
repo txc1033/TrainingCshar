@@ -104,7 +104,7 @@ namespace TrainingCshar.Data_Process
 
                 MessageBox.Show($"Se han agregado {cantidadAgregadaSql} de registros a la base de datos: {sqlConnection.Database}", titulo, MessageBoxButton.OK);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show($"El formato que se intenta exportar no es valido o esta vacio!", titulo, MessageBoxButton.OK);
                 return false;

@@ -13,6 +13,18 @@ namespace TrainingCshar.Collections
             this._edad = edad;
         }
 
+        public Stack<PersonaPila> ClonarPila(Stack<PersonaPila> personaPilas)
+        {
+            Pila pila = new Pila();
+
+            foreach (var item in personaPilas)
+            {
+                pila.Agregar(item);
+            }
+            
+            return pila.Clonar();
+        }
+
         public int edad { get => _edad; }
         public string nombre { get => _nombre; }
     }
