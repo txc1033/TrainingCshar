@@ -48,7 +48,7 @@ namespace CsharView
                     break;
 
                 case "BaseDatos":
-                    if (txtResultado.Text.Contains("Open"))
+                    if (txtResultado.Text.Contains("Open")) 
                     {
                         OpenFDb();
                     }

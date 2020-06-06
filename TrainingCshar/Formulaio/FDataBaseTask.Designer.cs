@@ -177,7 +177,7 @@
             // 
             // personaBS
             // 
-            this.personaBS.DataSource = typeof(TrainingCshar.Models.Persona);
+            this.personaBS.DataSource = typeof(CsharLibrary.Models.Person);
             // 
             // lbStatus
             // 

@@ -1,17 +1,21 @@
-﻿using System;
+﻿using SimpleInjector;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using TrainingCshar.Examples;
+using CsharLibrary.Examples;
+using CsharLibrary.Class.Data_Process;
 
 namespace TrainingCshar.Formulaio
 {
     public partial class FStart : Form
     {
-        private Orquestador orquestador;
+        private IOrchestrator orquestador;
+        private Container container;
 
-        public FStart()
+        public FStart(Container _container)
         {
-            orquestador = new Orquestador();
+            container = _container;
+            orquestador = container.GetInstance<IOrchestrator>();
             InitializeComponent();
             InitializeCombobox();
         }
@@ -20,7 +24,7 @@ namespace TrainingCshar.Formulaio
         {
             txtResultado.Clear();
             string accion = cmbAcciones.Text;
-            List<string> resultados = orquestador.EjecutaAccion(accion);
+            List<string> resultados = orquestador.ExecuteAction(accion);
             foreach (string resultado in resultados)
             {
                 txtResultado.Text += $"{resultado} {Environment.NewLine}";
@@ -77,7 +81,7 @@ namespace TrainingCshar.Formulaio
 
         private void OpenFApi()
         {
-            FApiTask fApi = new FApiTask();
+            FApiTask fApi = new FApiTask(container.GetInstance<IManagement>());
             this.Hide();
             fApi.ShowDialog();
             this.Show();
@@ -85,7 +89,7 @@ namespace TrainingCshar.Formulaio
 
         private void OpenFDb()
         {
-            FDataBaseTask fDB = new FDataBaseTask();
+            FDataBaseTask fDB = new FDataBaseTask(container.GetInstance<IManagement>());
             this.Hide();
             fDB.ShowDialog();
             this.Show();

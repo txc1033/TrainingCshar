@@ -1,24 +1,23 @@
-﻿using ClassVbExtendss;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
-using TrainingCshar.Class.Data_Process;
+using CsharLibrary.Class.Data_Process;
+using CsharLibrary.Models;
 
 namespace TrainingCshar.Formulaio
 {
     public partial class FApiTask : Form
     {
-        private IGestion gestion;
+        private IManagement management;
         private readonly ToolTip tlp = new ToolTip();
 
-        private const string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+        
 
-        public FApiTask()
+        public FApiTask(IManagement _management)
         {
             InitializeComponent();
-            gestion = new Gestion();
+            management = _management;
         }
 
         private void LbResponse_Click(object sender, EventArgs e)
@@ -35,7 +34,7 @@ namespace TrainingCshar.Formulaio
 
         private void TxtUrl_TextChanged(object sender, EventArgs e)
         {
-            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex reg = new Regex(management.GetPattern(), RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             bool isUri = reg.IsMatch(txtUrl.Text);
             btnSend.Enabled = isUri;
@@ -59,7 +58,7 @@ namespace TrainingCshar.Formulaio
 
                 javaScript = new JavaScriptSerializer();
 
-                Persona objectPersona = javaScript.Deserialize<Persona>(txtJson.Text);
+                Person objectPersona = javaScript.Deserialize<Person>(txtJson.Text);
                 var jsonPersona = javaScript.Serialize(txtJson.Text);
             }
             catch (Exception except)
@@ -70,7 +69,7 @@ namespace TrainingCshar.Formulaio
 
         private async void btnSend_ClickAsync(object sender, EventArgs e)
         {
-            txtJson.Text = await gestion.GetHttpUrl(txtUrl.Text);
+            txtJson.Text = await management.GetHttpUrl(txtUrl.Text);
         }
     }
 }
