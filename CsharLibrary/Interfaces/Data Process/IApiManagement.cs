@@ -7,6 +7,5 @@ namespace CsharLibrary.Data_Process
         Task<string> GetHttpUrl(string url);
 
         string GetPattern();
-
     }
 }

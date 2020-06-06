@@ -5,12 +5,12 @@ using SimpleInjector;
 
 namespace CsharLibrary
 {
-    public class Services
+    public class Service
     {
         private Container container;
         public Container csharContainer { get => container; }
 
-        public Services()
+        public Service()
         {
             container = new Container();
             container.Register<IOrchestrator, Orchestrator>();
@@ -19,7 +19,5 @@ namespace CsharLibrary
             container.Register<IFileManagement, FileManagement>();
             container.Register<IApiManagement, ApiManagement>();
         }
-
-
     }
 }

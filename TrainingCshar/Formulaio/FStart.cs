@@ -1,9 +1,9 @@
-﻿using SimpleInjector;
+﻿using CsharLibrary.Class.Data_Process;
+using CsharLibrary.Examples;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using CsharLibrary.Examples;
-using CsharLibrary.Class.Data_Process;
 
 namespace TrainingCshar.Formulaio
 {

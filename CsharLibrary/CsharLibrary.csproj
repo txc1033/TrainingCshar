@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IOrchestrator.cs" />
-    <Compile Include="Services.cs" />
+    <Compile Include="Service.cs" />
     <Compile Include="Class\Algorithms\Algorithm.cs" />
     <Compile Include="Class\Data Process\Management.cs" />
     <Compile Include="Class\Data Process\ApiManagement.cs" />

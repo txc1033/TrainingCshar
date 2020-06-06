@@ -1,18 +1,18 @@
-﻿using System.Text.RegularExpressions;
+﻿using CsharLibrary.Class.Data_Process;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CsharView
 {
-    /// <summary>
-    /// Lógica de interacción para Wpf.xaml
-    /// </summary>
     public partial class WpfClientRestTask : Window
     {
-        private const string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+        private IManagement management;
 
-        public WpfClientRestTask()
+        public WpfClientRestTask(IManagement _management)
         {
-            this.txtUrl = new System.Windows.Controls.TextBox();
+            management = _management;
+            this.txtUrl = new TextBox();
             InitializeComponent();
         }
 
@@ -44,16 +44,16 @@ namespace CsharView
             deserializaBtn.IsEnabled = (bool)jsonChck.IsChecked;
         }
 
-        private void txtUrl_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txtUrl_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex reg = new Regex("", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             bool isUri = reg.IsMatch(txtUrl.Text);
             enviarBtn.IsEnabled = isUri;
             jsonChck.Visibility = isUri ? Visibility.Visible : Visibility.Hidden;
         }
 
-        private void tipoEnvCmb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void tipoEnvCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool estado = tipoEnvCmb.SelectedIndex > 0 ? true : false;
             txtUrl.IsEnabled = estado;

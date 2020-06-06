@@ -16,7 +16,6 @@ namespace TrainingCshar.Formulaio
             InitializeComponent();
             InitializeDGPersona();
             management = _management;
-
         }
 
         private void btnExportToCsv_Click(object sender, EventArgs e)
@@ -29,7 +28,7 @@ namespace TrainingCshar.Formulaio
 
             string pathToSave = ObtainPathToAction(true);
 
-            estadoMesanje = management.SaveCsv((List<Person>)DGPersona.DataSource,pathToSave);
+            estadoMesanje = management.SaveCsv((List<Person>)DGPersona.DataSource, pathToSave);
 
             callMessage(estadoMesanje);
         }
@@ -73,15 +72,16 @@ namespace TrainingCshar.Formulaio
 
         private void callMessage(string message)
         {
-            if(!string.IsNullOrEmpty(message))
-            MessageBox.Show(message,"Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            if (!string.IsNullOrEmpty(message))
+                MessageBox.Show(message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private string ObtainPathToAction(bool isSave)
         {
             string path = management.GetRootDirectory();
 
-            if (isSave){
+            if (isSave)
+            {
                 SaveFileDialog saveFileDialog = new SaveFileDialog()
                 {
                     InitialDirectory = path,
@@ -92,7 +92,7 @@ namespace TrainingCshar.Formulaio
                     RestoreDirectory = true
                 };
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                path = saveFileDialog.FileName;
+                    path = saveFileDialog.FileName;
             }
             else
             {
@@ -104,12 +104,10 @@ namespace TrainingCshar.Formulaio
                     FilterIndex = 1,
                     RestoreDirectory = true
                 };
-                if(openFileDialog.ShowDialog() == DialogResult.OK)
-                path =  openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    path = openFileDialog.FileName;
             }
             return path;
-
-
         }
     }
 }

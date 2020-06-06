@@ -1,19 +1,22 @@
-﻿using System;
+﻿using CsharLibrary.Encoder;
+using CsharLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
-using CsharLibrary.Encoder;
-using CsharLibrary.Models;
 
 namespace CsharLibrary.Data_Process
 {
-    class DBManagement : IDBManagement
+    internal class DBManagement : IDBManagement
     {
         private const string titulo = "Error";
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-        public DBManagement(){}
+        public DBManagement()
+        {
+        }
+
         public List<Person> LoadDB()
         {
             return _Load(ConexionInitial());

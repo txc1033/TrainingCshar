@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CsharLibrary.Data_Process;
+﻿using CsharLibrary.Data_Process;
 using CsharLibrary.Models;
 using SimpleInjector;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CsharLibrary.Class.Data_Process
 {
-    public class Management :  IManagement
+    public class Management : IManagement
     {
         private IFileManagement fileManagement;
         private IDBManagement dbManagement;
@@ -15,8 +15,8 @@ namespace CsharLibrary.Class.Data_Process
         public Management(Container _container)
         {
             fileManagement = _container.GetInstance<IFileManagement>();
-            dbManagement   = _container.GetInstance<IDBManagement>();
-            apiManagement  = _container.GetInstance<IApiManagement>();
+            dbManagement = _container.GetInstance<IDBManagement>();
+            apiManagement = _container.GetInstance<IApiManagement>();
         }
 
         public async Task<string> GetHttpUrl(string url)
@@ -27,6 +27,11 @@ namespace CsharLibrary.Class.Data_Process
         public string GetPattern()
         {
             return apiManagement.GetPattern();
+        }
+
+        public string GetFormatDate()
+        {
+            return fileManagement.GetFormatDate();
         }
 
         public string GetRootDirectory()
@@ -51,7 +56,7 @@ namespace CsharLibrary.Class.Data_Process
 
         public string SaveCsv(List<Person> personsDb, string fileName)
         {
-            return fileManagement.SaveCsv(personsDb,fileName);
+            return fileManagement.SaveCsv(personsDb, fileName);
         }
 
         public string SaveDB(List<Person> personsDT)

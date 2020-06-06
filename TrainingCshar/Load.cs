@@ -1,4 +1,5 @@
 ﻿using CsharLibrary;
+
 namespace TrainingCshar
 {
     internal class Load
@@ -6,7 +7,7 @@ namespace TrainingCshar
         [System.STAThread]
         private static void Main(string[] args)
         {
-            var service = new Services();
+            var service = new Service();
             var container = service.csharContainer;
 
             System.Windows.Forms.Application.EnableVisualStyles();

@@ -8,3 +8,6 @@ dotnet_diagnostic.CA2000.severity = none
 
 # CA1303: No pasar cadenas literal como parámetros localizados
 dotnet_diagnostic.CA1303.severity = none
+
+# CA1707: Los identificadores no deben contener caracteres de subrayado
+dotnet_diagnostic.CA1707.severity = none

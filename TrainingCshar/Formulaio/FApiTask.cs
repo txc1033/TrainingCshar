@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CsharLibrary.Class.Data_Process;
+using CsharLibrary.Models;
+using System;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
-using CsharLibrary.Class.Data_Process;
-using CsharLibrary.Models;
 
 namespace TrainingCshar.Formulaio
 {
@@ -11,8 +11,6 @@ namespace TrainingCshar.Formulaio
     {
         private IManagement management;
         private readonly ToolTip tlp = new ToolTip();
-
-        
 
         public FApiTask(IManagement _management)
         {

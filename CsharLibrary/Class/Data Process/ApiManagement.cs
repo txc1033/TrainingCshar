@@ -4,15 +4,14 @@ using System.Threading.Tasks;
 
 namespace CsharLibrary.Data_Process
 {
-    class ApiManagement : IApiManagement
+    internal class ApiManagement : IApiManagement
     {
-        private const string _pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$"; 
-        
+        private const string _pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+
         public string GetPattern()
         {
             return _pattern;
         }
-
 
         public async Task<string> GetHttpUrl(string url)
         {

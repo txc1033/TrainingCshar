@@ -2,11 +2,11 @@
 
 namespace NetCoreTraining
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Object[] objetos = {"Perro", true, 12, 12.5, new Persona("Javier",25) };
+            Object[] objetos = { "Perro", true, 12, 12.5, new Persona("Javier", 25) };
             Console.WriteLine("Hello World!");
             RetornaObjetos(objetos);
             Console.ReadLine();
@@ -22,19 +22,16 @@ namespace NetCoreTraining
                     Console.WriteLine($"{((Persona)objeto).Nombre}, {((Persona)objeto).Edad} es de tipo: {tipo}");
                 else
                     Console.WriteLine($"{objeto} es de tipo: {tipo}");
-
-
-
             }
-            
         }
     }
 
-    class Persona
+    internal class Persona
     {
         private string _nombre;
         private int _edad;
-        public Persona(string nombre,int edad)
+
+        public Persona(string nombre, int edad)
         {
             this.Nombre = nombre;
             this.Edad = edad;

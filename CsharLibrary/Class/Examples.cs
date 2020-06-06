@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CsharLibrary.Algorithms;
+using CsharLibrary.Encoder;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using CsharLibrary.Algorithms;
-using CsharLibrary.Encoder;
 
 namespace CsharLibrary.Examples
 {

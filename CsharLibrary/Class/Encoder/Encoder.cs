@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 namespace CsharLibrary.Encoder
 {
     public class Encode

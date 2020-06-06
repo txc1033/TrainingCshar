@@ -1,17 +1,18 @@
-﻿using System;
+﻿using CsharLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using CsharLibrary.Models;
 
 namespace CsharLibrary.Data_Process
 {
-    class FileManagement : IFileManagement
+    internal class FileManagement : IFileManagement
     {
         private const string _directory = @"C:\TrainingDb\";
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
+        private const string formatDate = "dd-MM-yyyy HH:mm:ss";
 
         public FileManagement()
         {
@@ -27,9 +28,15 @@ namespace CsharLibrary.Data_Process
             return _directory;
         }
 
+        public string GetFormatDate()
+        {
+            return formatDate;
+        }
+
         public string GetDefaultFileName()
         {
-            return $"DGPersona_{DateTime.Now.ToString("dd-MM-yyyy_HHmm", currentCulture)}.csv";
+            string fileName = $"DGPersona_{DateTime.Now.ToString(formatDate, currentCulture)}.csv";
+            return fileName.Replace(" ", "_").Replace(":", "");
         }
 
         public List<Person> LoadCsv(string fileName)
@@ -37,9 +44,9 @@ namespace CsharLibrary.Data_Process
             return _LoadCsv(fileName);
         }
 
-        public string SaveCsv(List<Person> personas,string directory)
+        public string SaveCsv(List<Person> personas, string directory)
         {
-            return _SaveCsv(personas,directory);
+            return _SaveCsv(personas, directory);
         }
 
         private List<Person> _LoadCsv(string fileName)
@@ -81,18 +88,18 @@ namespace CsharLibrary.Data_Process
             return csvPersons;
         }
 
-        private string _SaveCsv(List<Person> persons,string fileName)
+        private string _SaveCsv(List<Person> persons, string fileName)
         {
             try
             {
                 if (persons.Count > 1)
-                { 
+                {
                     StringBuilder text = new StringBuilder(2655, 28000);
                     string columns = "ID,Nombre,Apellidos"
                                    + ",Edad,Rut,Digito Verificador"
                                    + ",Fecha Nacimiento";
 
-                    text.AppendLine(columns); 
+                    text.AppendLine(columns);
                     int count = 1;
                     foreach (var person in persons)
                     {
@@ -101,7 +108,7 @@ namespace CsharLibrary.Data_Process
                                    + $",{person.per_apellido}"
                                    + $",{person.per_edad}"
                                    + $",{person.per_rut}"
-                                   + $",{person.per_dv}" 
+                                   + $",{person.per_dv}"
                                    + $",{person.per_fechaNacimiento}";
                         if (!string.IsNullOrEmpty(row))
                             text.AppendLine(row);

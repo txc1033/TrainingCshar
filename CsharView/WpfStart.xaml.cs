@@ -1,7 +1,10 @@
-﻿using System;
+﻿using CsharLibrary;
+using CsharLibrary.Class.Data_Process;
+using CsharLibrary.Examples;
+using SimpleInjector;
+using System;
 using System.Collections.Generic;
 using System.Windows;
-using TrainingCshar.Examples;
 using TrainingCshar.Formulaio;
 
 namespace CsharView
@@ -11,11 +14,14 @@ namespace CsharView
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Orquestador orquestador;
+        private Container container;
+        private IOrchestrator orchestrator;
 
         public MainWindow()
         {
-            orquestador = new Orquestador();
+            Service service = new Service();
+            container = service.csharContainer;
+            orchestrator = container.GetInstance<IOrchestrator>();
             InitializeComponent();
             InitializeCombobox();
         }
@@ -24,7 +30,7 @@ namespace CsharView
         {
             cmbAcciones.Items.Add("Seleccione Una Accion...");
             cmbAcciones.SelectedIndex = 0;
-            List<string> acciones = orquestador.GetAcciones();
+            List<string> acciones = orchestrator.GetAcciones();
             foreach (var accion in acciones)
             {
                 cmbAcciones.Items.Add(accion);
@@ -35,7 +41,7 @@ namespace CsharView
         {
             txtResultado.Clear();
             string accion = cmbAcciones.Text;
-            List<string> resultados = orquestador.EjecutaAccion(accion);
+            List<string> resultados = orchestrator.ExecuteAction(accion);
             foreach (string resultado in resultados)
             {
                 txtResultado.Text += $"{resultado} {Environment.NewLine}";
@@ -48,7 +54,7 @@ namespace CsharView
                     break;
 
                 case "BaseDatos":
-                    if (txtResultado.Text.Contains("Open")) 
+                    if (txtResultado.Text.Contains("Open"))
                     {
                         OpenFDb();
                     }
@@ -58,7 +64,7 @@ namespace CsharView
 
         private void OpenFApi()
         {
-            WpfClientRestTask fApi = new WpfClientRestTask();
+            WpfClientRestTask fApi = new WpfClientRestTask(container.GetInstance<IManagement>());
             this.Hide();
             fApi.ShowDialog();
             this.Show();
@@ -66,7 +72,7 @@ namespace CsharView
 
         private void OpenFDb()
         {
-            WpfDataBaseTask fDB = new WpfDataBaseTask();
+            WpfDataBaseTask fDB = new WpfDataBaseTask(container.GetInstance<IManagement>());
             this.Hide();
             fDB.ShowDialog();
             this.Show();
@@ -75,7 +81,7 @@ namespace CsharView
         private void btnForm_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            FStart fst = new FStart();
+            FStart fst = new FStart(container);
             fst.ShowDialog();
             this.Show();
         }
