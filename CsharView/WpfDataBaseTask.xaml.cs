@@ -107,6 +107,8 @@ namespace CsharView
                 bool? result = saveFileDialog.ShowDialog();
                 if (result == true)
                     path = saveFileDialog.FileName;
+                else
+                    path = null;
             }
             else
             {
@@ -121,6 +123,8 @@ namespace CsharView
                 bool? result = openFileDialog.ShowDialog();
                 if (result == true)
                     path = openFileDialog.FileName;
+                else
+                    path = null;
             }
             return path;
         }

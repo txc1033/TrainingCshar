@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace CsharLibrary.Data_Process
 {
@@ -13,9 +12,11 @@ namespace CsharLibrary.Data_Process
         private const string _directory = @"C:\TrainingDb\";
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
         private const string formatDate = "dd-MM-yyyy HH:mm:ss";
+        private IPerson person;
 
         public FileManagement()
         {
+            person = new Person();
         }
 
         public string GetRootDirectory()
@@ -62,23 +63,14 @@ namespace CsharLibrary.Data_Process
                         while (!sr.EndOfStream)
                         {
                             string[] rows = sr.ReadLine().Split(',');
-                            if (!rows[0].ToString(currentCulture).Equals("ID", StringComparison.CurrentCulture) && !string.IsNullOrEmpty(rows[0].ToString(currentCulture)))
-                            {
-                                Person person = new Person()
-                                {
-                                    per_idPersona = int.Parse(rows[0], currentCulture),
-                                    per_nombre = rows[1],
-                                    per_apellido = rows[2],
-                                    per_edad = int.Parse(rows[3], currentCulture),
-                                    per_rut = int.Parse(rows[4], currentCulture),
-                                    per_dv = rows[5],
-                                    per_fechaNacimiento = DateTime.Parse(rows[6], currentCulture)
-                                };
-                                csvPersons.Add(person);
-                            }
+                            var getPerson = person.TextToPerson(rows);
+
+                            if (getPerson is null)
+                                continue;
+                            csvPersons.Add(getPerson);
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
                         return csvPersons;
                     }
@@ -87,60 +79,33 @@ namespace CsharLibrary.Data_Process
 
             return csvPersons;
         }
-
-        private string _SaveCsv(List<Person> persons, string fileName)
+        private string _SaveCsv(List<Person> people, string fileName)
         {
-            try
-            {
-                if (persons.Count > 1)
+                if (people.Count > 1)
                 {
-                    StringBuilder text = new StringBuilder(2655, 28000);
-                    string columns = "ID,Nombre,Apellidos"
-                                   + ",Edad,Rut,Digito Verificador"
-                                   + ",Fecha Nacimiento";
-
-                    text.AppendLine(columns);
-                    int count = 1;
-                    foreach (var person in persons)
-                    {
-                        string row = $"{count}"
-                                   + $",{person.per_nombre}"
-                                   + $",{person.per_apellido}"
-                                   + $",{person.per_edad}"
-                                   + $",{person.per_rut}"
-                                   + $",{person.per_dv}"
-                                   + $",{person.per_fechaNacimiento}";
-                        if (!string.IsNullOrEmpty(row))
-                            text.AppendLine(row);
-
-                        count++;
-                    }
+                    var text = person.PersonToText(people);
 
                     File.WriteAllText(fileName, text.ToString());
 
-                    ///<summary>
-                    /// Una vez guardado lo abrimos con un editor de texto para
-                    /// verificar que contenga la informacion
-                    /// </summary>
-                    try
-                    {
-                        Process.Start("notepad++.exe", fileName);
-                    }
-                    catch (Exception)
-                    {
-                        Process.Start("notepad.exe", fileName);
-                    }
+                    LoadTextEditor(fileName);
                 }
-                else
+                else if(!string.IsNullOrEmpty(fileName))
                 {
                     return $"La tabla no tiene suficientes datos para exportarse";
                 }
-            }
-            catch (Exception e)
-            {
-                return $"El formato que se intenta exportar no es valido\n{e.TargetSite}";
-            }
             return string.Empty;
+        }
+
+        private void LoadTextEditor(string fileName)
+        {
+            try
+            {
+                Process.Start("notepad++.exe", fileName);
+            }
+            catch (Exception)
+            {
+                Process.Start("notepad.exe", fileName);
+            }
         }
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IOrchestrator.cs" />
+    <Compile Include="Interfaces\Models\IPerson.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Class\Algorithms\Algorithm.cs" />
     <Compile Include="Class\Data Process\Management.cs" />
