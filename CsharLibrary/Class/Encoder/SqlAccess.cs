@@ -13,12 +13,11 @@ namespace CsharLibrary.Encoder
 
         public SqlAccess()
         {
-            sql_avanzado = "RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0ASgBBAFYASQBEAEUAU";
-            sql_avanzado += "wBLAFQATwBQADsASQBuAGkAdABpAGEAbAAgAEMAYQB0AGEAb";
-            sql_avanzado += "ABvAGcAPQBzAHEAbABfAGEAdgBhAG4AegBhAGQAbwA7AFAAZ";
-            sql_avanzado += "QByAHMAaQBzAHQAIABTAGUAYwB1AHIAaQB0AHkAIABJAG4AZ";
-            sql_avanzado += "gBvAD0AVAByAHUAZQA7AFUAcwBlAHIAIABJAEQAPQBhAHAAc";
-            sql_avanzado += "ABzADsAUABhAHMAcwB3AG8AcgBkAD0AYQBwAHMAMQAwADMAMQA=";
+            // Aqui se inserta la conexcion encryptada con el methodo encoder
+            sql_avanzado += "RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0ASgBBAFYASQBGAEEAUwBUAEQARQBTAEsAVABPAFAAOwBJAG4";
+            sql_avanzado += "AaQB0AGkAYQBsACAAQwBhAHQAYQBsAG8AZwA9AHMAcQBsAF8AYQB2AGEAbgB6AGEAZABvADsAUABlAH";
+            sql_avanzado += "IAcwBpAHMAdAAgAFMAZQBjAHUAcgBpAHQAeQAgAEkAbgBmAG8APQBUAHIAdQBlADsAVQBzAGUAcgAg";
+            sql_avanzado += "AEkARAA9AGEAcABwAHMAOwBQAGEAcwBzAHcAbwByAGQAPQBhAHAAcwAxADAAMwAxAA==";
         }
 
         public DataTable GetElementToDatabase(int capacity)
