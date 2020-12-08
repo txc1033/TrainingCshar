@@ -32,6 +32,7 @@ namespace CsharLibrary.Encoder
 
         private DataTable _GetElementToDatabase(int capacity)
         {
+            
             DataTable dataTable = new DataTable();
             string procedure = "[colegio].[pa_PersonasSegmento]";
             SqlCommand sqlCmd = new SqlCommand(procedure, InitialConection());
