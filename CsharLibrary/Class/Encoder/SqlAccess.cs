@@ -14,10 +14,10 @@ namespace CsharLibrary.Encoder
         public SqlAccess()
         {
             // Aqui se inserta la conexcion encryptada con el methodo encoder
-            sql_avanzado += "RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0ASgBBAFYASQBGAEEAUwBUAEQARQBTAEsAVABPAFAAOwBJAG4";
-            sql_avanzado += "AaQB0AGkAYQBsACAAQwBhAHQAYQBsAG8AZwA9AHMAcQBsAF8AYQB2AGEAbgB6AGEAZABvADsAUABlAH";
-            sql_avanzado += "IAcwBpAHMAdAAgAFMAZQBjAHUAcgBpAHQAeQAgAEkAbgBmAG8APQBUAHIAdQBlADsAVQBzAGUAcgAg";
-            sql_avanzado += "AEkARAA9AGEAcABwAHMAOwBQAGEAcwBzAHcAbwByAGQAPQBhAHAAcwAxADAAMwAxAA==";
+            sql_avanzado += "RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0ASgBBAFYASQBEAEUAUwBLAFQATwBQADsASQBuAGkAdABp";
+            sql_avanzado += "AGEAbAAgAEMAYQB0AGEAbABvAGcAPQBzAHEAbABfAGEAdgBhAG4AegBhAGQAbwA7AFAAZQByAHMAaQBzAHQA";
+            sql_avanzado += "IABTAGUAYwB1AHIAaQB0AHkAIABJAG4AZgBvAD0AVAByAHUAZQA7AFUAcwBlAHIAIABJA";
+            sql_avanzado += "EQAPQBhAHAAcABzADsAUABhAHMAcwB3AG8AcgBkAD0AYQBwAHMAMQAwADMAMQA=";
         }
 
         public DataTable GetElementToDatabase(int capacity)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CsharView"
         mc:Ignorable="d"
-        Title="WpfDataBaseTask" Height="450" Width="800">
+        Title="WpfDataBaseTask" Height="324.852" Width="582.053" MinWidth="805.5" MinHeight="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -21,8 +21,8 @@
         <Button Click="btnLoadDb_Click" Name="btnLoadDb"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Margin="10" Width="103">Cargar desde DB</Button>
         <Button Click="btnSaveDb_Click" Name="btnSaveDb" Grid.Column="1" Margin="5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="108">Exportar local a DB</Button>
         <TextBlock Name="lbTitle" Grid.Column="2" FontSize="22" FontWeight="Bold" TextDecorations="Underline" TextAlignment="Center" VerticalAlignment="Center">Gestion de datos locales</TextBlock>
-        <Button Click="btnLoadCSV_Click" Name="btnLoadCSV" Grid.Column="4" Margin="5,10">Cargar CSV</Button>
+        <Button Click="btnLoadCSV_Click" Name="btnLoadCSV" Grid.Column="4" Margin="5,10,0,10" HorizontalAlignment="Left" Width="114">Cargar CSV</Button>
         <Button Click="btnSaveCSV_Click" Name="btnSaveCSV" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,10" Width="103" Height="45">Guardar CSV</Button>
-        <DataGrid Name="DGPersona" Grid.ColumnSpan="5" EnableRowVirtualization="False" Margin="0,60,0,5" Grid.RowSpan="2" AutoGeneratingColumn="DGPersona_AutoGeneratingColumn" />
+        <DataGrid Name="DGPersona" Grid.ColumnSpan="5" EnableRowVirtualization="False" Margin="10,60,10,17" Grid.RowSpan="2" AutoGeneratingColumn="DGPersona_AutoGeneratingColumn" />
     </Grid>
 </Window>

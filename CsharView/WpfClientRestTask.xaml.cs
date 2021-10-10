@@ -16,8 +16,9 @@ namespace CsharView
             InitializeComponent();
         }
 
-        private void enviarBtn_Click(object sender, RoutedEventArgs e)
+        private async void enviarBtn_Click(object sender, RoutedEventArgs e)
         {
+            txtResponse.Text = await management.GetHttpUrl(txtUrl.Text);
         }
 
         private void serializaBtn_Click(object sender, RoutedEventArgs e)
@@ -30,7 +31,7 @@ namespace CsharView
 
         private void jsonChck_Checked(object sender, RoutedEventArgs e)
         {
-            txtResponse.IsEnabled = (bool)jsonChck.IsChecked;
+            //txtResponse.IsEnabled = (bool)jsonChck.IsChecked;
             txtResponse.IsReadOnly = !(bool)jsonChck.IsChecked;
             serializaBtn.IsEnabled = (bool)jsonChck.IsChecked;
             deserializaBtn.IsEnabled = (bool)jsonChck.IsChecked;
@@ -38,7 +39,7 @@ namespace CsharView
 
         private void jsonChck_Unchecked(object sender, RoutedEventArgs e)
         {
-            txtResponse.IsEnabled = (bool)jsonChck.IsChecked;
+            //txtResponse.IsEnabled = (bool)jsonChck.IsChecked;
             txtResponse.IsReadOnly = !(bool)jsonChck.IsChecked;
             serializaBtn.IsEnabled = (bool)jsonChck.IsChecked;
             deserializaBtn.IsEnabled = (bool)jsonChck.IsChecked;

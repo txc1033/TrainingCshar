@@ -11,11 +11,13 @@ namespace TrainingCshar.Formulaio
     {
         private IManagement management;
         private readonly ToolTip tlp = new ToolTip();
+        private const int lenghLimit = 34;
 
         public FApiTask(IManagement _management)
         {
             InitializeComponent();
             management = _management;
+            
         }
 
         private void LbResponse_Click(object sender, EventArgs e)
@@ -61,13 +63,24 @@ namespace TrainingCshar.Formulaio
             }
             catch (Exception except)
             {
-                lbStatus.Text = except.Message.Substring(0, 34);
+                int iLength = except.Message.Length > lenghLimit ? lenghLimit : except.Message.Length;
+                lbStatus.Text = except.Message.Substring(0, iLength);
             }
         }
 
         private async void btnSend_ClickAsync(object sender, EventArgs e)
         {
             txtJson.Text = await management.GetHttpUrl(txtUrl.Text);
+        }
+
+        private void btnToJson_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnToClass_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

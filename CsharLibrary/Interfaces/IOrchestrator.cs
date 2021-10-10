@@ -4,8 +4,8 @@ namespace CsharLibrary.Examples
 {
     public interface IOrchestrator
     {
-        List<string> ExecuteAction(string accion);
+        List<string> ExecuteAction(string action);
 
-        List<string> GetAcciones();
+        List<string> GetActions();
     }
 }

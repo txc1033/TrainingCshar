@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -15,12 +16,19 @@ namespace CsharLibrary.Data_Process
 
         public async Task<string> GetHttpUrl(string url)
         {
-            WebRequest webRequest = WebRequest.Create(url);
-            WebResponse webResponse = webRequest.GetResponse();
-            using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
+            try
             {
-                return await sr.ReadToEndAsync();
+                WebRequest webRequest = WebRequest.Create(url);
+                WebResponse webResponse = webRequest.GetResponse();
+                using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
+                {
+                    return await sr.ReadToEndAsync();
+                }
+            }catch(Exception e)
+            {
+                return $"Error al procesar.. {e.Message}";
             }
+
         }
     }
 }

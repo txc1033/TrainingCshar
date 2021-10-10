@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CsharView"
         mc:Ignorable="d"
-        Title="Wpf" Height="450" Width="800">
+        Title="Wpf" Height="342.604" Width="29.586" MinWidth="800" MinHeight="450">
     <Grid>
         <ComboBox x:Name="tipoEnvCmb" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="tipoEnvCmb_SelectionChanged">
             <ListBoxItem Content="Ninguno" />
@@ -19,12 +19,12 @@
         <Button x:Name="serializaBtn" Click="serializaBtn_Click" Content="Serializa" HorizontalAlignment="Left" Margin="218,41,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" />
         <Button x:Name="deserializaBtn" Click="deserializaBtn_Click" Content="Deserializa" HorizontalAlignment="Left" Margin="298,41,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.587,0.55" IsEnabled="False" />
         <CheckBox x:Name="jsonChck" Checked="jsonChck_Checked" Unchecked="jsonChck_Unchecked" Content="Preparar Json?" HorizontalAlignment="Left" Margin="378,44,0,0" VerticalAlignment="Top" Visibility="Hidden" />
-        <TabControl HorizontalAlignment="Left" Height="326" Margin="10,83,0,0" VerticalAlignment="Top" Width="772">
+        <TabControl Margin="10,83,10,10">
             <TabItem Header="Json Retornado">
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="lbUrl" Content="Ingresa la Url:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="103" FontWeight="Bold" FontSize="14" Height="32" />
-                    <TextBox x:Name="txtResponse" HorizontalAlignment="Left" Height="224" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="746" IsEnabled="False" />
-                    <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Height="23" Margin="113,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="643" TextChanged="txtUrl_TextChanged" IsEnabled="False" />
+                    <TextBox x:Name="txtResponse" Margin="10,64,10,10" TextWrapping="Wrap" IsReadOnly="True" />
+                    <TextBox x:Name="txtUrl" Margin="113,36,10,0" TextWrapping="Wrap" TextChanged="txtUrl_TextChanged" IsEnabled="False" Height="23" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="Objeto Json">

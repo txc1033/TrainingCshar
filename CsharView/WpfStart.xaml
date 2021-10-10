@@ -5,22 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CsharView"
         mc:Ignorable="d"
-        Title="Training Cshar Inicio" Height="450" Width="800" MinWidth="800" MinHeight="450">
-    <Grid>
+        Title="Training Cshar Inicio" Height="335.991" Width="583.432" MinWidth="800" MinHeight="450">
+    <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="265*"></ColumnDefinition>
+            <ColumnDefinition Width="254*"></ColumnDefinition>
+            <ColumnDefinition Width="271*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <ComboBox Name="cmbAcciones" Grid.Column="0" Grid.Row="0" Margin="10" Text="Seleccione un methodo..."></ComboBox>
-        <Button Click="BtnEjecutarClick" Grid.Column="1" Grid.Row="0" Margin="10,10,182,10">Ejecutar:</Button>
-        <Border  Grid.ColumnSpan="2" Grid.Row="1" Margin="20" BorderBrush="Gray" BorderThickness="2">
+        <Button Click="BtnEjecutarClick" Grid.Column="1" Grid.Row="0" Margin="25,10,25
+                ,10">Ejecutar:</Button>
+        <Border  Grid.ColumnSpan="3" Grid.Row="1" Margin="20,20,10,48" BorderBrush="Gray" BorderThickness="2">
             <TextBox Name="txtResultado"
-                   FontSize="25" Margin="8" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" MinWidth="732" MinHeight="309">Bienvenido a TrainingCshar</TextBox>
+                   FontSize="25" Margin="-2,-2,-2,-10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" MinWidth="732" MinHeight="309">Bienvenido a TrainingCshar</TextBox>
         </Border>
-        <Button x:Name="btnForm" Content="Abrir en Form" Grid.Column="1" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" Width="147" Height="30" Click="btnForm_Click" />
+        <Button x:Name="btnForm" Content="Abrir en Form" Grid.Column="2" HorizontalAlignment="Left" Margin="60,10,60,10" VerticalAlignment="Top" Width="147" Height="30" Click="btnForm_Click" RenderTransformOrigin="1.105,0.542" />
     </Grid>
 </Window>

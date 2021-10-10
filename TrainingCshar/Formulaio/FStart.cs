@@ -72,10 +72,10 @@ namespace TrainingCshar.Formulaio
         {
             cmbAcciones.Items.Add("Seleccione Una Accion...");
             cmbAcciones.SelectedIndex = 0;
-            List<string> acciones = orquestador.GetAcciones();
-            foreach (var accion in acciones)
+            List<string> actions = orquestador.GetActions();
+            foreach (var action in actions)
             {
-                cmbAcciones.Items.Add(accion);
+                cmbAcciones.Items.Add(action);
             }
         }
 

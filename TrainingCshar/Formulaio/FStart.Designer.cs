@@ -46,7 +46,7 @@
             this.btnEjecutar.UseVisualStyleBackColor = true;
             this.btnEjecutar.Click += new System.EventHandler(this.BtnEjecutar_Click);
             // 
-            // txtResult
+            // txtResultado
             // 
             this.txtResultado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -54,17 +54,17 @@
             this.txtResultado.Cursor = System.Windows.Forms.Cursors.Cross;
             this.txtResultado.Location = new System.Drawing.Point(13, 41);
             this.txtResultado.Multiline = true;
-            this.txtResultado.Name = "txtResult";
+            this.txtResultado.Name = "txtResultado";
             this.txtResultado.ReadOnly = true;
             this.txtResultado.Size = new System.Drawing.Size(312, 206);
             this.txtResultado.TabIndex = 4;
             // 
-            // cmbAccion
+            // cmbAcciones
             // 
-            this.cmbAcciones.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAcciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAcciones.FormattingEnabled = true;
             this.cmbAcciones.Location = new System.Drawing.Point(13, 13);
-            this.cmbAcciones.Name = "cmbAccion";
+            this.cmbAcciones.Name = "cmbAcciones";
             this.cmbAcciones.Size = new System.Drawing.Size(167, 21);
             this.cmbAcciones.TabIndex = 5;
             this.cmbAcciones.SelectedIndexChanged += new System.EventHandler(this.CmbAccion_SelectedIndexChanged);

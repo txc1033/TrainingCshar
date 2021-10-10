@@ -10,38 +10,39 @@ namespace CsharLibrary.Examples
     {
         private Examples example;
         private MethodInfo[] exampleMethods;
+        private string mesage;
 
         public Orchestrator()
         {
             exampleMethods = typeof(Examples).GetMethods();
         }
 
-        public List<string> ExecuteAction(string accion)
+        public List<string> ExecuteAction(string action)
         {
-            return _ExecuteAction(accion, exampleMethods);
+            return _ExecuteAction(action, exampleMethods);
         }
 
-        public List<string> GetAcciones()
+        public List<string> GetActions()
         {
-            return _GetAcciones();
+            return _GetActions();
         }
 
-        private List<string> _GetAcciones()
+        private List<string> _GetActions()
         {
-            List<string> acciones = new List<string>();
-            foreach (MethodInfo metodo in exampleMethods)
+            List<string> actions = new List<string>();
+            foreach (MethodInfo method in exampleMethods)
             {
-                string excampleAction = metodo.Name;
-                acciones.Add(excampleAction);
+                string exampleAction = method.Name;
+                actions.Add(exampleAction);
                 foreach (MethodInfo metodoObject in typeof(object).GetMethods())
                 {
-                    if (excampleAction.Equals(metodoObject.Name, StringComparison.InvariantCultureIgnoreCase))
+                    if (exampleAction.Equals(metodoObject.Name, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        acciones.Remove(excampleAction);
+                        actions.Remove(exampleAction);
                     }
                 }
             }
-            return acciones;
+            return actions;
         }
 
         private List<string> _ExecuteAction(string action, MethodInfo[] exampleMethods)
@@ -63,14 +64,14 @@ namespace CsharLibrary.Examples
                         }
                         else if (parameters[0].Name == "numero")
                         {
-                            string mesage = $"Favor escribe un {parameters[0].Name} para la tarea {action}";
+                            mesage = $"Favor escribe un {parameters[0].Name} para la tarea {action}";
                             int value = int.Parse(Interaction.InputBox(mesage), CultureInfo.CurrentCulture);
                             answers = (List<string>)Interaction.CallByName(example, action, CallType.Method, value);
                         }
                         else
                         {
-                            string mensaje = $"Favor escribe un {parameters[0].Name} para la tarea {action}";
-                            string valor = Interaction.InputBox(mensaje);
+                            mesage = $"Favor escribe un {parameters[0].Name} para la tarea {action}";
+                            string valor = Interaction.InputBox(mesage);
                             answers = (List<string>)Interaction.CallByName(example, action, CallType.Method, valor);
                         }
                         return answers;

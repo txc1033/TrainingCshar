@@ -48,6 +48,7 @@
             // 
             // cmbTypeEnv
             // 
+            this.cmbTypeEnv.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTypeEnv.FormattingEnabled = true;
             this.cmbTypeEnv.Items.AddRange(new object[] {
             "Ninguno",
@@ -83,6 +84,7 @@
             this.btnToJson.Text = "Serializa";
             this.btnToJson.UseVisualStyleBackColor = true;
             this.btnToJson.Visible = false;
+            this.btnToJson.Click += new System.EventHandler(this.btnToJson_Click);
             // 
             // btnToClass
             // 
@@ -94,6 +96,7 @@
             this.btnToClass.Text = "Deserializa";
             this.btnToClass.UseVisualStyleBackColor = true;
             this.btnToClass.Visible = false;
+            this.btnToClass.Click += new System.EventHandler(this.btnToClass_Click);
             // 
             // chkTexto
             // 
@@ -150,12 +153,15 @@
             // 
             // lbStatus
             // 
+            this.lbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStatus.AutoSize = true;
             this.lbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStatus.Location = new System.Drawing.Point(7, 198);
+            this.lbStatus.Location = new System.Drawing.Point(6, 253);
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(0, 13);
+            this.lbStatus.Size = new System.Drawing.Size(47, 13);
             this.lbStatus.TabIndex = 8;
+            this.lbStatus.Text = "Status:";
             // 
             // lbUrl
             // 
@@ -181,7 +187,7 @@
             this.tbJsonClass.Location = new System.Drawing.Point(4, 22);
             this.tbJsonClass.Name = "tbJsonClass";
             this.tbJsonClass.Padding = new System.Windows.Forms.Padding(3);
-            this.tbJsonClass.Size = new System.Drawing.Size(473, 217);
+            this.tbJsonClass.Size = new System.Drawing.Size(489, 272);
             this.tbJsonClass.TabIndex = 1;
             this.tbJsonClass.Text = "Objeto Json";
             this.tbJsonClass.UseVisualStyleBackColor = true;
