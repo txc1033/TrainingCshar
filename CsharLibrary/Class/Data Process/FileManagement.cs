@@ -93,7 +93,7 @@ namespace CsharLibrary.Data_Process
                 {
                     return $"La tabla no tiene suficientes datos para exportarse";
                 }
-            return string.Empty;
+            return $"la tabla fue guardada correctamente en el archivo: {Path.GetFileNameWithoutExtension(fileName)}";
         }
 
         private void LoadTextEditor(string fileName)

@@ -46,7 +46,7 @@ namespace TrainingCshar_Testing.Class.DataProcess
             Encode.Process(sql.db, false);
             var data = managent.LoadDB();
             var result = managent.SaveCsv(data, "Prueba");
-            Assert.IsNotNull(result);
+            StringAssert.Contains(result, "guardada correctamente");
             Console.WriteLine(result);
         }
 
@@ -57,7 +57,7 @@ namespace TrainingCshar_Testing.Class.DataProcess
             var result = managent.GetDefaultFileName();
             Assert.IsNotNull(result);
             result = managent.GetRootDirectory();
-            Assert.IsTrue(result.Contains("TrainingDb"));
+            StringAssert.Contains(result, "TrainingDb");
             Console.WriteLine(result);
         }
     }
